@@ -1,5 +1,5 @@
 # Ignore CSV folder, because data files too big.
-csv/*.csv
+*.csv
 
 
 
