@@ -1,7 +1,8 @@
 # Ignore CSV folder, because data files too big.
 csv/*.csv
 csv/
-
+data/csv/*.csv
+data/
 
 # Created by https://www.gitignore.io/api/r,macos
 
@@ -51,6 +52,7 @@ Temporary Items
 
 # RStudio files
 .Rproj.user/
+.Rproj
 
 # produced vignettes
 vignettes/*.html
