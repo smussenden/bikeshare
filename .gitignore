@@ -43,7 +43,7 @@ Temporary Items
 /*.Rcheck/
 # RStudio files
 .Rproj.user/
-.Rproj
+*.Rproj
 # produced vignettes
 vignettes/*.html
 vignettes/*.pdf
@@ -57,3 +57,4 @@ vignettes/*.pdf
 *.knit.md
 # End of https://www.gitignore.io/api/r,macos
 packrat/lib*/
+.Rproj.user
