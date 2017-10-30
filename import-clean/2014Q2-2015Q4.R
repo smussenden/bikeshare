@@ -20,7 +20,7 @@ Q22014$end_date <- mdy_hm(Q22014$end_date)
 Q22014$duration <- hms(Q22014$duration)
 
 View(Q22014)
-rm(Q22014)  
+rm(Q22014)
 
 
 ##Reading in File Q32014
@@ -135,9 +135,3 @@ Q42015$end_date <- mdy_hm(Q42015$end_date)
 
 View(Q42015)
 rm(Q42015)
-
-
-
-
-
-  

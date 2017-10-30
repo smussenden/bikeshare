@@ -11,10 +11,10 @@ library(lubridate)
 
 #First transformation - Rename columns to replace spaces with underscores and replace capital letters with lowercase
 Q42016 <- read_csv("Data/2016-Q4-Trips-History-Data.csv", col_names=TRUE)
-Q42016 <- Q42016 %>% 
-  rename(duration = "Duration (ms)", start_date = "Start date", end_date = "End date", start_station_number = "Start station number", start_station = "Start station", end_station_number = "End station number", end_station = "End station", bike_number = "Bike number", member_type = "Member Type" ) %>% 
-  mutate(quarter = "Q4-2016")  %>% 
-  select(quarter, duration:member_type)%>% 
+Q42016 <- Q42016 %>%
+  rename(duration = "Duration (ms)", start_date = "Start date", end_date = "End date", start_station_number = "Start station number", start_station = "Start station", end_station_number = "End station number", end_station = "End station", bike_number = "Bike number", member_type = "Member Type" ) %>%
+  mutate(quarter = "Q4-2016")  %>%
+  select(quarter, duration:member_type)%>%
   mutate(duration = round(duration/1000))
 
 Q42016$start_date <- mdy_hm(Q42016$start_date)
@@ -32,7 +32,7 @@ Q32012 <- Q32012 %>%
 ####Add a column with the column name 'quarter' and populate the values of the column with quarter number and year
     mutate(quarter = "Q3-2012")  %>%
 ####display the quarter column first
-  select(quarter, duration:member_type) 
+  select(quarter, duration:member_type)
 ####convert the start date string to datetime in ISO format
 Q32012$start_date <- mdy_hm(Q32012$start_date)
 ####convert the end date string to datetime in ISO format
@@ -118,10 +118,3 @@ Q12014$end_date <- mdy_hm(Q12014$end_date)
 Q12014$duration <- hms(Q12014$duration)
 View(Q12014)
 rm(Q12014)
-
-
-
-
-
-
-
