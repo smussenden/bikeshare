@@ -62,6 +62,6 @@ By default, RStudio imported the Duration, Start Date and End Date columns as st
 
 For a step-by-step look at our data cleaning steps, please see the following files R script files:
 * [2010Q4-2012Q2.r](../import-clean/2010Q4-2012Q2.r)
-* [2012Q3-2014Q1.r](../import-clean/2012Q3-2014Q1.r)
-* [2014Q2-2015Q4.r](../import-clean/2014Q2-2015Q4.r)
-* [2016Q1-2017Q1.r](../import-clean/2016Q1-2017Q1.r)
+* [2012Q3-2014Q1.r](../import-clean/2012Q3-2014Q1.R)
+* [2014Q2-2015Q4.r](../import-clean/2014Q2-2015Q4.R)
+* [2016Q1-2017Q1.r](../import-clean/2016Q1-2017Q1.R)
