@@ -92,5 +92,3 @@ Q12017$duration <- seconds_to_period(Q12017$duration)
 
 Q12017$start_date <- mdy_hm(Q12017$start_date)
 Q12017$end_date <- mdy_hm(Q12017$end_date)
-
-
