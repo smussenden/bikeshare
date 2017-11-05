@@ -595,7 +595,7 @@ Q32015$end_date <- mdy_hm(Q32015$end_date)
 
 ####END Q32015####
 
-####BEGIN Q42015#### STILL WORKING ON THIS.  NEED TO FIGURE OUT HOW TO CONVERT START STATION NUMBER and END STATION BACK TO CHARACTER
+####BEGIN Q42015#### 
 
 #Read in Q42015 
 Q42015 <- read_csv("data/csv/2015-Q4-Trips-History-Data.csv", col_names=TRUE)
@@ -614,7 +614,7 @@ Q42015 <- Q42015 %>%
   select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type)
 # Convert the seconds to duration format
 Q42015$duration <- seconds_to_period(Q42015$duration)
-# Convert the duration column back to character, so that it binds correctly
+# Convert the duration column back to character, so that it binds correctly. And convert start station number and end station number to character so they bind correctly.
 Q42015 <- Q42015 %>%
   mutate_if(is.period, as.character) %>%
   mutate_at(vars(start_station_number), as.character) %>%
@@ -626,13 +626,197 @@ Q42015$end_date <- mdy_hm(Q42015$end_date)
 
 ####END Q42015####
 
+####BEGIN Q12016#### 
 
+#Read in Q12016 
+Q12016 <- read_csv("data/csv/2016-Q1-Trips-History-Data.csv", col_names=TRUE)
 
+# Rename the columns to match formatting from other sections.  
+Q12016 <- Q12016 %>%
+  rename(duration = "Duration (ms)", start_date = "Start date", start_station = "Start station", start_station_number = "Start station number", end_date = "End date", end_station = "End station", end_station_number = "End station number", bike_number = "Bike number", member_type = "Member Type")
 
+# Modify the file as follows...   
+Q12016 <- Q12016 %>%
+  # Add a column with the name of the file, to indicate quarter.    
+  mutate(quarter = "Q12016")  %>%
+  # Convert milliseconds in duration column to seconds
+  mutate(duration = round(duration/1000)) %>%
+  # Select columns we need in order.
+  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type)
+# Convert the seconds to duration format
+Q12016$duration <- seconds_to_period(Q12016$duration)
+# Convert the duration column back to character, so that it binds correctly. And convert start station number and end station number to character so they bind correctly.
+Q12016 <- Q12016 %>%
+  mutate_if(is.period, as.character) %>%
+  mutate_at(vars(start_station_number), as.character) %>%
+  mutate_at(vars(end_station_number), as.character)
+# Convert the start date to a valid datetime format, using lubridate.
+Q12016$start_date <- mdy_hm(Q12016$start_date)
+# Convert the end date to a valid datetime format, using lubridate.
+Q12016$end_date <- mdy_hm(Q12016$end_date)
 
+####END Q12016####
+
+####BEGIN Q22016#### 
+
+#Read in Q22016 
+Q22016 <- read_csv("data/csv/2016-Q2-Trips-History-Data.csv", col_names=TRUE)
+
+# Rename the columns to match formatting from other sections.  
+Q22016 <- Q22016 %>%
+  rename(duration = "Duration (ms)", start_date = "Start date", start_station = "Start station", start_station_number = "Start station number", end_date = "End date", end_station = "End station", end_station_number = "End station number", bike_number = "Bike number", member_type = "Account type")
+
+# Modify the file as follows...   
+Q22016 <- Q22016 %>%
+  # Add a column with the name of the file, to indicate quarter.    
+  mutate(quarter = "Q22016")  %>%
+  # Convert milliseconds in duration column to seconds
+  mutate(duration = round(duration/1000)) %>%
+  # Select columns we need in order.
+  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type)
+# Convert the seconds to duration format
+Q22016$duration <- seconds_to_period(Q22016$duration)
+# Convert the duration column back to character, so that it binds correctly. And convert start station number and end station number to character so they bind correctly.
+Q22016 <- Q22016 %>%
+  mutate_if(is.period, as.character) %>%
+  mutate_at(vars(start_station_number), as.character) %>%
+  mutate_at(vars(end_station_number), as.character)
+# Convert the start date to a valid datetime format, using lubridate.
+Q22016$start_date <- mdy_hm(Q22016$start_date)
+# Convert the end date to a valid datetime format, using lubridate.
+Q22016$end_date <- mdy_hm(Q22016$end_date)
+
+####END Q22016####
+
+####BEGIN Q3A2016#### 
+
+#Read in Q3A2016 
+Q3A2016 <- read_csv("data/csv/2016-Q3-Trips-History-Data-1.csv", col_names=TRUE)
+
+# Rename the columns to match formatting from other sections.  
+Q3A2016 <- Q3A2016 %>%
+  rename(duration = "Duration (ms)", start_date = "Start date", start_station = "Start station", start_station_number = "Start station number", end_date = "End date", end_station = "End station", end_station_number = "End station number", bike_number = "Bike number", member_type = "Member Type")
+
+# Modify the file as follows...   
+Q3A2016 <- Q3A2016 %>%
+  # Add a column with the name of the file, to indicate quarter.    
+  mutate(quarter = "Q32016")  %>%
+  # Convert milliseconds in duration column to seconds
+  mutate(duration = round(duration/1000)) %>%
+  # Select columns we need in order.
+  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type)
+# Convert the seconds to duration format
+Q3A2016$duration <- seconds_to_period(Q3A2016$duration)
+# Convert the duration column back to character, so that it binds correctly. And convert start station number and end station number to character so they bind correctly.
+Q3A2016 <- Q3A2016 %>%
+  mutate_if(is.period, as.character) %>%
+  mutate_at(vars(start_station_number), as.character) %>%
+  mutate_at(vars(end_station_number), as.character)
+# Convert the start date to a valid datetime format, using lubridate.
+Q3A2016$start_date <- mdy_hm(Q3A2016$start_date)
+# Convert the end date to a valid datetime format, using lubridate.
+Q3A2016$end_date <- mdy_hm(Q3A2016$end_date)
+
+####END Q3A2016####
+
+####BEGIN Q3B2016#### 
+
+#Read in Q3B2016 
+Q3B2016 <- read_csv("data/csv/2016-Q3-Trips-History-Data-2.csv", col_names=TRUE)
+
+# Rename the columns to match formatting from other sections.  
+Q3B2016 <- Q3B2016 %>%
+  rename(duration = "Duration (ms)", start_date = "Start date", start_station = "Start station", start_station_number = "Start station number", end_date = "End date", end_station = "End station", end_station_number = "End station number", bike_number = "Bike number", member_type = "Member Type")
+
+# Modify the file as follows...   
+Q3B2016 <- Q3B2016 %>%
+  # Add a column with the name of the file, to indicate quarter.    
+  mutate(quarter = "Q32016")  %>%
+  # Convert milliseconds in duration column to seconds
+  mutate(duration = round(duration/1000)) %>%
+  # Select columns we need in order.
+  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type)
+# Convert the seconds to duration format
+Q3B2016$duration <- seconds_to_period(Q3B2016$duration)
+# Convert the duration column back to character, so that it binds correctly. And convert start station number and end station number to character so they bind correctly.
+Q3B2016 <- Q3B2016 %>%
+  mutate_if(is.period, as.character) %>%
+  mutate_at(vars(start_station_number), as.character) %>%
+  mutate_at(vars(end_station_number), as.character)
+# Convert the start date to a valid datetime format, using lubridate.
+Q3B2016$start_date <- mdy_hm(Q3B2016$start_date)
+# Convert the end date to a valid datetime format, using lubridate.
+Q3B2016$end_date <- mdy_hm(Q3B2016$end_date)
+
+####END Q3B2016####
+
+####BEGIN Q42016#### 
+
+#Read in Q42016 
+Q42016 <- read_csv("data/csv/2016-Q4-Trips-History-Data.csv", col_names=TRUE)
+
+# Rename the columns to match formatting from other sections.  
+Q42016 <- Q42016 %>%
+  rename(duration = "Duration (ms)", start_date = "Start date", start_station = "Start station", start_station_number = "Start station number", end_date = "End date", end_station = "End station", end_station_number = "End station number", bike_number = "Bike number", member_type = "Member Type")
+
+# Modify the file as follows...   
+Q42016 <- Q42016 %>%
+  # Add a column with the name of the file, to indicate quarter.    
+  mutate(quarter = "Q42016")  %>%
+  # Convert milliseconds in duration column to seconds
+  mutate(duration = round(duration/1000)) %>%
+  # Select columns we need in order.
+  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type)
+# Convert the seconds to duration format
+Q42016$duration <- seconds_to_period(Q42016$duration)
+# Convert the duration column back to character, so that it binds correctly. And convert start station number and end station number to character so they bind correctly.
+Q42016 <- Q42016 %>%
+  mutate_if(is.period, as.character) %>%
+  mutate_at(vars(start_station_number), as.character) %>%
+  mutate_at(vars(end_station_number), as.character)
+# Convert the start date to a valid datetime format, using lubridate.
+Q42016$start_date <- mdy_hm(Q42016$start_date)
+# Convert the end date to a valid datetime format, using lubridate.
+Q42016$end_date <- mdy_hm(Q42016$end_date)
+
+####END Q42016####
+
+####BEGIN Q12017#### 
+
+#Read in Q12017 
+Q12017 <- read_csv("data/csv/2017-Q1-Trips-History-Data.csv", col_names=TRUE)
+
+# Rename the columns to match formatting from other sections.  
+Q12017 <- Q12017 %>%
+  rename(duration = "Duration", start_date = "Start date", start_station = "Start station", start_station_number = "Start station number", end_date = "End date", end_station = "End station", end_station_number = "End station number", bike_number = "Bike number", member_type = "Member Type")
+
+# Modify the file as follows...   
+Q12017 <- Q12017 %>%
+  # Add a column with the name of the file, to indicate quarter.    
+  mutate(quarter = "Q12017")  %>%
+  # Convert milliseconds in duration column to seconds
+  mutate(duration = round(duration/1000)) %>%
+  # Select columns we need in order.
+  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type)
+# Convert the seconds to duration format
+Q12017$duration <- seconds_to_period(Q12017$duration)
+# Convert the duration column back to character, so that it binds correctly. And convert start station number and end station number to character so they bind correctly.
+Q12017 <- Q12017 %>%
+  mutate_if(is.period, as.character) %>%
+  mutate_at(vars(start_station_number), as.character) %>%
+  mutate_at(vars(end_station_number), as.character)
+# Convert the start date to a valid datetime format, using lubridate.
+Q12017$start_date <- mdy_hm(Q12017$start_date)
+# Convert the end date to a valid datetime format, using lubridate.
+Q12017$end_date <- mdy_hm(Q12017$end_date)
+
+####END Q12017####
 
 # Bind together the data sets into one giant data set.
-Q42010_Q12015 <- bind_rows(Q42010,Q12011,Q22011,Q32011,Q42011,Q12012,Q22012,Q32012,Q42012,Q12013,Q22013,Q32013,Q42013,Q12014,Q22014,Q32014,Q42014,Q12015)
-# Convert the duration values to a valid period format with lubridate.  Have to do this after the bind, or the bind will not occur correctly.
-Q42010_Q12015$duration <- hms(Q42010_Q12015$duration)
+allbike <- bind_rows(Q42010,Q12011,Q22011,Q32011,Q42011,Q12012,Q22012,Q32012,Q42012,Q12013,Q22013,Q32013,Q42013,Q12014,Q22014,Q32014,Q42014,Q12015,Q22015,Q32015,Q42015,Q12016,Q22016,Q3A2016,Q3B2016,Q42016,Q12017)
 
+# Convert the duration values to a valid period format with lubridate.  Have to do this after the bind, or the bind will not occur correctly.
+allbike$duration <- hms(allbike$duration)
+
+# Remove all but the allbike master dataset to free up memory
+rm(list=(ls()[ls()!="allbike"]))
