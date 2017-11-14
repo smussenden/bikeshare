@@ -68,5 +68,10 @@ mem_type <- below30 %>%
   arrange(desc(count))
 View(mem_type)
 
-
+# how have the ridership patterns changed within the past 5 years
+Qtype <- allquarters %>%
+  group_by(quarter) %>%
+  summarise(count= n()) %>%
+  arrange(desc(count))
+View(allquarters)
 
