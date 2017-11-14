@@ -5,7 +5,7 @@ library('lubridate');
 
 ##Analysis scripts are to be ran against the 'allbike' master dataset resulting from all-quarters.r cleaning script
 
-##Question 1: How do ridership patterns vary by season?
+##Question 1: How do ridership patterns vary by season? We would like to answer this question by observing the different changes that occurred in pattern of trips taken during the different quarter of the year for the past five years. In doing so we will be able to determine if there has been a growth of popularity in for this bikeshare program and if it has not improved then we can look into other factors as to why they have not improved (e.g. bike station location, public transportation near the stations).
 
 ####Group by quarters, Q1-Q4
 Qtype <- allbike %>%
@@ -30,7 +30,7 @@ PopularQ <- Qgroups %>%
 View(PopularQ)
 
 
-##Question 2: What percentage of registered members and casual members -- who take rides under 30-minutes free
+##Question 2: What percentage of registered members and casual members -- who take rides under 30-minutes free. This question will help determine whether or not individuals who are registered users tend to use the bikes for longer period of time or do they use them for a similar time period as casual users. Furthermore, this could potentially help us identify patterns why casual users may choose to use the Bikeshare service on a casual basis rather than register to it.
 
 ####Group by member_type for all duration
 alltime <- allbike %>%
@@ -58,7 +58,7 @@ mem_type <- below30 %>%
 View(mem_type)
 
 
-##Question 3: Can we uncover the "secret lives" of individual bikes, by measuring how a single bike moves across the city every day for a single year?
+##Question 3: Can we uncover the "secret lives" of individual bikes, by measuring how a single bike moves across the city every day for a single year? By answering this question, it can help to develop future activities for community members who use the Bikeshare program such as group membership discounts and coupons for restaurants near the most popular stations.
 
 library('tidyverse');
 library('lubridate');
