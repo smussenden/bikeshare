@@ -488,8 +488,10 @@ Q42014 <- Q42014 %>%
   mutate(end_station_number = "") %>%
   # Select columns we need in order.
   select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type)
-# Note that I don't need to convert start_date to valid datetime format using lubridate, because it's been read in with correct datetime format already.
-# Note that I don't need to convert end_date to valid datetime format using lubridate, because it's been read in with correct datetime format already.
+# # Convert the start date to a valid datetime format, using lubridate.
+Q42014$start_date <- mdy_hm(Q42014$start_date)
+# Convert the end date to a valid datetime format, using lubridate.
+Q42014$end_date <- mdy_hm(Q2014$end_date)
 
 ####END Q42014####
 
@@ -561,7 +563,6 @@ Q22015$end_date <- mdy_hm(Q22015$end_date)
 
 ####END Q22015####
 
-STILL WORKING ON THIS ONE
 
 ####BEGIN Q32015####
 
@@ -818,7 +819,7 @@ Q12017$end_date <- mdy_hm(Q12017$end_date)
 # Bind together the data sets into one giant data set.
 allbike <- bind_rows(Q42010,Q12011,Q22011,Q32011,Q42011,Q12012,Q22012,Q32012,Q42012,Q12013,Q22013,Q32013,Q42013,Q12014,Q22014,Q32014,Q42014,Q12015,Q22015,Q32015,Q42015,Q12016,Q22016,Q3A2016,Q3B2016,Q42016,Q12017)
 
-# Here is where we still need to correct daylight savings time. 
+################ Here is where we still need to correct daylight savings time. 
 
 # Calculate duration by subtracting start date from end date, and select the new trip_minutes column in place of the busted duration column. Also trim white space off the end of station names that are blocking grouping.
 allbike <- allbike %>%
@@ -831,28 +832,92 @@ View(allbike)
 # Remove all but the allbike master dataset to free up memory
 rm(list=(ls()[ls()!="allbike"]))
 
+# Still need to write out the CSV
+write_csv(allbike, "data/allquarters/allquarters.csv")
+
+### WORKING ON JOINING STATION NAMES BACK TO BIKESHARE
+
 # Read in the csv of stations from Capital Bikeshare site https://gbfs.capitalbikeshare.com/gbfs/en/station_information.json
 stationlist <- read_csv("data/stations/stations.csv",
                         col_types = cols(
                           station_id = col_character(),
                           short_name = col_character())
-                        )
+)
 
+View(stationlist)
 
-# Still need to write out the CSV
-write_csv(allbike, "data/allquarters/allquarters.csv")
+# Create a list of all the start stations in our allbike file.
 
-# Remove trailing whitespace from end of station names
-
-stations <- allbike %>%
+startstations <- allbike %>%
   group_by(start_station) %>%
   summarise(count= n()) %>%
   mutate(length= str_length(start_station)) %>%
   arrange(count)
-View(stations)
+View(startstations)
 
-# Create a copy of allbike to play with
-allbikex <- allbike
+# Create a list of end stations in our allbike file
+
+endstations <- allbike %>%
+  group_by(end_station) %>%
+  summarise(count= n()) %>%
+  mutate(length= str_length(end_station)) %>%
+  arrange(count)
+View(endstations)
+
+# Bind these two files together to get a master list of all stations in our file
+
+startstationbind <- startstations %>%
+  rename(station = "start_station")
+endstationbind <- endstations %>%
+  rename(station = "end_station")
+ourstations <- bind_rows(startstationbind,endstationbind)
+ourstations <- ourstations %>%
+  select(station) %>%
+  distinct(station)
+
+# Write this file out to a CSV
+write_csv(ourstations, "data/stations/OurStations.csv")
+
+
+# Figure out which startstations and endstations in our allbike dataset are not in their station list by using an anti_join
+
+notinstartstations <- anti_join(startstations,stationlist, by=c( "start_station" = "name"))
+notinendstations <- anti_join(endstations,stationlist, by=c( "end_station" = "name"))
+
+
+# In notinstartstations and notinendstations, rename start_station and end_station as station. Then Bind together notinstartstations and notinendstations to get one big list of values in both files, then group by to remove duplicates
+
+notinstartstations <- notinstartstations %>%
+  rename(station = "start_station")
+
+notinendstations <- notinendstations %>%
+  rename(station = "end_station")
+
+# Bind them together, then select only distinct values to remove duplicates
+NotInEndStart <- bind_rows(notinstartstations,notinendstations)
+NotInEndStart <- NotInEndStart %>%
+  select(station) %>%
+  distinct(station)
+  
+# Write this out to a CSV 
+write_csv(NotInEndStart, "data/stations/StationsNotInOurData.csv")
+
+# Figure out which of our stations are not in their data
+stnotinstation <- anti_join(stationlist,startstations, by=c("name" = "start_station"))
+endnotinstation <- anti_join(stationlist,endstations, by=c("name" = "end_station"))
+
+# Bind them together to get one big list of values in both files, then group by to remove duplicates.  This groupby ins't working in R for some reason
+NotInTheirData <- bind_rows(stnotinstation,endnotinstation)
+NotInTheirData <- NotInTheirData %>%
+  select(name) %>%
+  distinct(name)
+
+# Write this out to a CSV 
+write_csv(NotInTheirData, "data/stations/StationsNotInTheirData.csv")
+
+# Create a copy of allbike called xallbike, which I can remove if I need to. This is my working verison. 
+
+xallbike <- allbike
 
 
 stations <- allbikex %>%
