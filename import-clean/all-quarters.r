@@ -11,6 +11,10 @@ library('tidyverse')
 
 library('lubridate')
 
+# Load stringr so we can tweak strings
+library('stringr')
+
+
 ####BEGIN Q42010####
 
 # Read in Q42010.
@@ -76,7 +80,6 @@ Q12011 <- Q12011 %>%
 Q12011$start_date <- mdy_hm(Q12011$start_date)
 # Convert the end date to a valid datetime format, using lubridate.
 Q12011$end_date <- mdy_hm(Q12011$end_date)
-
 
 ####END Q12011####
 
@@ -233,14 +236,14 @@ Q32012 <- Q32012 %>%
 
 # Modify the file as follows...
 Q32012 <- Q32012 %>%
-  # Add a column with the name of the file, to indicate quarter.  
+  # Add a column with the name of the file, to indicate quarter.
   mutate(quarter = "Q32012") %>%
   # Deal with lack of start_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(start_station_number = "") %>%
   # Deal with lack of end_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(end_station_number = "") %>%
   # Select columns we need in order.
-  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type) 
+  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type)
 # Convert the start date to a valid datetime format, using lubridate.
 Q32012$start_date <- mdy_hm(Q32012$start_date)
 # Convert the end date to a valid datetime format, using lubridate.
@@ -257,16 +260,16 @@ Q42012 <- read_csv("data/csv/2012-Q4-cabi-trip-history-data.csv", col_names=TRUE
 Q42012 <- Q42012 %>%
   rename(duration = "Duration", start_date = "Start date", end_date = "End date", start_station = "Start Station", end_station = "End Station", bike_number = "Bike#", member_type = "Subscription Type")
 
-# Modify the file as follows...  
+# Modify the file as follows...
 Q42012 <- Q42012 %>%
-  # Add a column with the name of the file, to indicate quarter.  
+  # Add a column with the name of the file, to indicate quarter.
   mutate(quarter = "Q42012")  %>%
   # Deal with lack of start_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(start_station_number = "") %>%
   # Deal with lack of end_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(end_station_number = "") %>%
   # Select columns we need in order.
-  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type) 
+  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type)
 # Convert the member type column value to match the value in other sections.
 Q42012$member_type[Q42012$member_type == "Subscriber"] <- "Registered"
 # Convert the start date to a valid datetime format, using lubridate.
@@ -274,27 +277,27 @@ Q42012$start_date <- mdy_hm(Q42012$start_date)
 # Convert the end date to a valid datetime format, using lubridate.
 Q42012$end_date <- mdy_hm(Q42012$end_date)
 
-####END Q42012####  
+####END Q42012####
 
 ###BEGIN Q12013####
 
-#Read in Q12013  
+#Read in Q12013
 Q12013 <- read_csv("data/csv/2013-Q1-cabi-trip-history-data.csv", col_names=TRUE)
 
-# Rename the columns to match formatting from other sections.  
+# Rename the columns to match formatting from other sections.
 Q12013 <- Q12013 %>%
   rename(duration = "Duration", start_date = "Start date", end_date = "End date", start_station = "Start Station", end_station = "End Station", bike_number = "Bike#", member_type = "Subscription Type" )
 
-# Modify the file as follows...  
+# Modify the file as follows...
 Q12013 <- Q12013 %>%
-  # Add a column with the name of the file, to indicate quarter.    
+  # Add a column with the name of the file, to indicate quarter.
   mutate(quarter = "Q12013")  %>%
   # Deal with lack of start_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(start_station_number = "") %>%
   # Deal with lack of end_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(end_station_number = "") %>%
   # Select columns we need in order.
-  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type) 
+  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type)
 # Convert the member type column value to match the value in other sections.
 Q12013$member_type[Q12013$member_type == "Subscriber"] <- "Registered"
 # Convert the start date to a valid datetime format, using lubridate.
@@ -306,23 +309,23 @@ Q12013$end_date <- mdy_hm(Q12013$end_date)
 
 ####BEGIN Q22013####
 
-#Read in Q22013    
+#Read in Q22013
 Q22013 <- read_csv("data/csv/2013-Q2-cabi-trip-history-data.csv", col_names=TRUE)
 
-# Rename the columns to match formatting from other sections.  
+# Rename the columns to match formatting from other sections.
 Q22013 <- Q22013 %>%
   rename(duration = "Duration", start_date = "Start time", end_date = "End date", start_station = "Start Station", end_station = "End Station", bike_number = "Bike#", member_type = "Subscription Type" )
 
-# Modify the file as follows...  
+# Modify the file as follows...
 Q22013 <- Q22013 %>%
-  # Add a column with the name of the file, to indicate quarter.    
+  # Add a column with the name of the file, to indicate quarter.
   mutate(quarter = "Q22013")  %>%
   # Deal with lack of start_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(start_station_number = "") %>%
   # Deal with lack of end_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(end_station_number = "") %>%
   # Select columns we need in order.
-  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type) 
+  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type)
 # Convert the member type column value to match the value in other sections.
 Q22013$member_type[Q22013$member_type == "Subscriber"] <- "Registered"
 # Convert the start date to a valid datetime format, using lubridate.
@@ -330,27 +333,27 @@ Q22013$start_date <- mdy_hm(Q22013$start_date)
 # Convert the end date to a valid datetime format, using lubridate.
 Q22013$end_date <- mdy_hm(Q22013$end_date)
 
-####END Q22013####  
+####END Q22013####
 
 ####BEGIN Q32013####
 
 #Read in Q32013
 Q32013 <- read_csv("data/csv/2013-Q3-cabi-trip-history-data.csv", col_names=TRUE)
 
-# Rename the columns to match formatting from other sections.  
+# Rename the columns to match formatting from other sections.
 Q32013 <- Q32013 %>%
   rename(duration = "Duration", start_date = "Start date", end_date = "End date", start_station = "Start Station", end_station = "End Station", bike_number = "Bike#", member_type = "Subscription Type" )
 
-# Modify the file as follows...   
+# Modify the file as follows...
 Q32013 <- Q32013 %>%
-  # Add a column with the name of the file, to indicate quarter.    
+  # Add a column with the name of the file, to indicate quarter.
   mutate(quarter = "Q32013")  %>%
   # Deal with lack of start_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(start_station_number = "") %>%
   # Deal with lack of end_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(end_station_number = "") %>%
   # Select columns we need in order.
-  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type) 
+  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type)
 # Convert the member type column value to match the value in other sections.
 Q32013$member_type[Q32013$member_type == "Subscriber"] <- "Registered"
 # Convert the start date to a valid datetime format, using lubridate.
@@ -365,20 +368,20 @@ Q32013$end_date <- mdy_hm(Q32013$end_date)
 #Read in Q42013
 Q42013 <- read_csv("data/csv/2013-Q4-cabi-trip-history-data.csv", col_names=TRUE)
 
-# Rename the columns to match formatting from other sections.  
+# Rename the columns to match formatting from other sections.
 Q42013 <- Q42013 %>%
   rename(duration = "Duration", start_date = "Start date", end_date = "End date", start_station = "Start Station", end_station = "End Station", bike_number = "Bike#", member_type = "Subscription Type" )
 
-# Modify the file as follows...   
+# Modify the file as follows...
 Q42013 <- Q42013 %>%
-  # Add a column with the name of the file, to indicate quarter.    
+  # Add a column with the name of the file, to indicate quarter.
   mutate(quarter = "Q42013")  %>%
   # Deal with lack of start_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(start_station_number = "") %>%
   # Deal with lack of end_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(end_station_number = "") %>%
   # Select columns we need in order.
-  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type) 
+  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type)
 # Convert the member type column value to match the value in other sections.
 Q42013$member_type[Q42013$member_type == "Subscriber"] <- "Registered"
 # Convert the start date to a valid datetime format, using lubridate.
@@ -393,20 +396,20 @@ Q42013$end_date <- mdy_hm(Q42013$end_date)
 #Read in Q12014
 Q12014 <- read_csv("data/csv/2014-Q1-cabi-trip-history-data.csv", col_names=TRUE)
 
-# Rename the columns to match formatting from other sections.  
+# Rename the columns to match formatting from other sections.
 Q12014 <- Q12014 %>%
   rename(duration = "Duration", start_date = "Start date", end_date = "End date", start_station = "Start Station", end_station = "End Station", bike_number = "Bike#", member_type = "Member Type" )
 
-# Modify the file as follows...   
+# Modify the file as follows...
 Q12014 <- Q12014 %>%
-  # Add a column with the name of the file, to indicate quarter.    
+  # Add a column with the name of the file, to indicate quarter.
   mutate(quarter = "Q12014")  %>%
   # Deal with lack of start_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(start_station_number = "") %>%
   # Deal with lack of end_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(end_station_number = "") %>%
   # Select columns we need in order.
-  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type) 
+  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type)
 # Convert the start date to a valid datetime format, using lubridate.
 Q12014$start_date <- mdy_hm(Q12014$start_date)
 # Convert the end date to a valid datetime format, using lubridate.
@@ -419,20 +422,20 @@ Q12014$end_date <- mdy_hm(Q12014$end_date)
 #Read in Q22014
 Q22014 <- read_csv("data/csv/2014-Q2-cabi-trip-history-data.csv", col_names=TRUE)
 
-# Rename the columns to match formatting from other sections.  
+# Rename the columns to match formatting from other sections.
 Q22014 <- Q22014 %>%
   rename(duration = "Duration", start_date = "Start date", end_date = "End date", start_station = "Start Station", end_station = "End Station", bike_number = "Bike#", member_type = "Subscriber Type" )
 
-# Modify the file as follows...   
+# Modify the file as follows...
 Q22014 <- Q22014 %>%
-  # Add a column with the name of the file, to indicate quarter.    
+  # Add a column with the name of the file, to indicate quarter.
   mutate(quarter = "Q22014")  %>%
   # Deal with lack of start_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(start_station_number = "") %>%
   # Deal with lack of end_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(end_station_number = "") %>%
   # Select columns we need in order.
-  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type) 
+  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type)
 # Convert the start date to a valid datetime format, using lubridate.
 Q22014$start_date <- mdy_hm(Q22014$start_date)
 # Convert the end date to a valid datetime format, using lubridate.
@@ -445,20 +448,20 @@ Q22014$end_date <- mdy_hm(Q22014$end_date)
 #Read in Q32014
 Q32014 <- read_csv("data/csv/2014-Q3-cabi-trip-history-data.csv", col_names=TRUE)
 
-# Rename the columns to match formatting from other sections.  
+# Rename the columns to match formatting from other sections.
 Q32014 <- Q32014 %>%
   rename(duration = "Duration", start_date = "Start date", end_date = "End date", start_station = "Start Station", end_station = "End Station", bike_number = "Bike#", member_type = "Subscription Type" )
 
-# Modify the file as follows...   
+# Modify the file as follows...
 Q32014 <- Q32014 %>%
-  # Add a column with the name of the file, to indicate quarter.    
+  # Add a column with the name of the file, to indicate quarter.
   mutate(quarter = "Q32014")  %>%
   # Deal with lack of start_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(start_station_number = "") %>%
   # Deal with lack of end_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(end_station_number = "") %>%
   # Select columns we need in order.
-  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type) 
+  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type)
 # Convert the start date to a valid datetime format, using lubridate.
 Q32014$start_date <- mdy_hm(Q32014$start_date)
 # Convert the end date to a valid datetime format, using lubridate.
@@ -471,37 +474,37 @@ Q32014$end_date <- mdy_hm(Q32014$end_date)
 #Read in Q42014
 Q42014 <- read_csv("data/csv/2014-Q4-cabi-trip-history-data.csv", col_names=TRUE)
 
-# Rename the columns to match formatting from other sections.  
+# Rename the columns to match formatting from other sections.
 Q42014 <- Q42014 %>%
   rename(duration = "Duration", start_date = "Start date", end_date = "End date", start_station = "Start Station", end_station = "End Station", bike_number = "Bike#", member_type = "Subscription Type" )
 
-# Modify the file as follows...   
+# Modify the file as follows...
 Q42014 <- Q42014 %>%
-  # Add a column with the name of the file, to indicate quarter.    
+  # Add a column with the name of the file, to indicate quarter.
   mutate(quarter = "Q42014")  %>%
   # Deal with lack of start_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(start_station_number = "") %>%
   # Deal with lack of end_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(end_station_number = "") %>%
   # Select columns we need in order.
-  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type) 
-# Note that I don't need to convert start_date to valid datetime format using lubridate, because it's been read in with correct datetime format already. 
-# Note that I don't need to convert end_date to valid datetime format using lubridate, because it's been read in with correct datetime format already. 
+  select(quarter, duration, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type)
+# Note that I don't need to convert start_date to valid datetime format using lubridate, because it's been read in with correct datetime format already.
+# Note that I don't need to convert end_date to valid datetime format using lubridate, because it's been read in with correct datetime format already.
 
 ####END Q42014####
 
 ####BEGIN Q12015####
 
-#Read in Q12015 
+#Read in Q12015
 Q12015 <- read_csv("data/csv/2015-Q1-Trips-History-Data.csv", col_names=TRUE)
 
-# Rename the columns to match formatting from other sections.  
+# Rename the columns to match formatting from other sections.
 Q12015 <- Q12015 %>%
   rename(duration = "Total duration (ms)", start_date = "Start date", start_station = "Start station", end_date = "End date", end_station = "End station", bike_number = "Bike number", member_type = "Subscription Type")
 
-# Modify the file as follows...   
+# Modify the file as follows...
 Q12015 <- Q12015 %>%
-  # Add a column with the name of the file, to indicate quarter.    
+  # Add a column with the name of the file, to indicate quarter.
   mutate(quarter = "Q12015")  %>%
   # Deal with lack of start_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(start_station_number = "") %>%
@@ -525,16 +528,16 @@ Q12015$end_date <- mdy_hm(Q12015$end_date)
 
 ####BEGIN Q22015####
 
-#Read in Q22015 
+#Read in Q22015
 Q22015 <- read_csv("data/csv/2015-Q2-Trips-History-Data.csv", col_names=TRUE)
 
-# Rename the columns to match formatting from other sections.  
+# Rename the columns to match formatting from other sections.
 Q22015 <- Q22015 %>%
   rename(duration = "Duration (ms)", start_date = "Start date", start_station = "Start station", end_date = "End date", end_station = "End station", bike_number = "Bike number", member_type = "Subscription type")
 
-# Modify the file as follows...   
+# Modify the file as follows...
 Q22015 <- Q22015 %>%
-  # Add a column with the name of the file, to indicate quarter.    
+  # Add a column with the name of the file, to indicate quarter.
   mutate(quarter = "Q22015")  %>%
   # Deal with lack of start_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(start_station_number = "") %>%
@@ -562,16 +565,16 @@ STILL WORKING ON THIS ONE
 
 ####BEGIN Q32015####
 
-#Read in Q32015 
+#Read in Q32015
 Q32015 <- read_csv("data/csv/2015-Q3-cabi-trip-history-data.csv", col_names=TRUE)
 
-# Rename the columns to match formatting from other sections.  
+# Rename the columns to match formatting from other sections.
 Q32015 <- Q32015 %>%
   rename(duration = "Duration (ms)", start_date = "Start date", start_station = "Start station", end_date = "End date", end_station = "End station", bike_number = "Bike #", member_type = "Member type")
 
-# Modify the file as follows...   
+# Modify the file as follows...
 Q32015 <- Q32015 %>%
-  # Add a column with the name of the file, to indicate quarter.    
+  # Add a column with the name of the file, to indicate quarter.
   mutate(quarter = "Q32015")  %>%
   # Deal with lack of start_station_number column (and lack of station numbers), by creating a column filled with no values.
   mutate(start_station_number = "") %>%
@@ -595,18 +598,18 @@ Q32015$end_date <- mdy_hm(Q32015$end_date)
 
 ####END Q32015####
 
-####BEGIN Q42015#### 
+####BEGIN Q42015####
 
-#Read in Q42015 
+#Read in Q42015
 Q42015 <- read_csv("data/csv/2015-Q4-Trips-History-Data.csv", col_names=TRUE)
 
-# Rename the columns to match formatting from other sections.  
+# Rename the columns to match formatting from other sections.
 Q42015 <- Q42015 %>%
   rename(duration = "Duration (ms)", start_date = "Start date", start_station = "Start station", start_station_number = "Start station number", end_date = "End date", end_station = "End station", end_station_number = "End station number", bike_number = "Bike #", member_type = "Member type")
 
-# Modify the file as follows...   
+# Modify the file as follows...
 Q42015 <- Q42015 %>%
-  # Add a column with the name of the file, to indicate quarter.    
+  # Add a column with the name of the file, to indicate quarter.
   mutate(quarter = "Q42015")  %>%
   # Convert milliseconds in duration column to seconds
   mutate(duration = round(duration/1000)) %>%
@@ -626,18 +629,18 @@ Q42015$end_date <- mdy_hm(Q42015$end_date)
 
 ####END Q42015####
 
-####BEGIN Q12016#### 
+####BEGIN Q12016####
 
-#Read in Q12016 
+#Read in Q12016
 Q12016 <- read_csv("data/csv/2016-Q1-Trips-History-Data.csv", col_names=TRUE)
 
-# Rename the columns to match formatting from other sections.  
+# Rename the columns to match formatting from other sections.
 Q12016 <- Q12016 %>%
   rename(duration = "Duration (ms)", start_date = "Start date", start_station = "Start station", start_station_number = "Start station number", end_date = "End date", end_station = "End station", end_station_number = "End station number", bike_number = "Bike number", member_type = "Member Type")
 
-# Modify the file as follows...   
+# Modify the file as follows...
 Q12016 <- Q12016 %>%
-  # Add a column with the name of the file, to indicate quarter.    
+  # Add a column with the name of the file, to indicate quarter.
   mutate(quarter = "Q12016")  %>%
   # Convert milliseconds in duration column to seconds
   mutate(duration = round(duration/1000)) %>%
@@ -657,18 +660,18 @@ Q12016$end_date <- mdy_hm(Q12016$end_date)
 
 ####END Q12016####
 
-####BEGIN Q22016#### 
+####BEGIN Q22016####
 
-#Read in Q22016 
+#Read in Q22016
 Q22016 <- read_csv("data/csv/2016-Q2-Trips-History-Data.csv", col_names=TRUE)
 
-# Rename the columns to match formatting from other sections.  
+# Rename the columns to match formatting from other sections.
 Q22016 <- Q22016 %>%
   rename(duration = "Duration (ms)", start_date = "Start date", start_station = "Start station", start_station_number = "Start station number", end_date = "End date", end_station = "End station", end_station_number = "End station number", bike_number = "Bike number", member_type = "Account type")
 
-# Modify the file as follows...   
+# Modify the file as follows...
 Q22016 <- Q22016 %>%
-  # Add a column with the name of the file, to indicate quarter.    
+  # Add a column with the name of the file, to indicate quarter.
   mutate(quarter = "Q22016")  %>%
   # Convert milliseconds in duration column to seconds
   mutate(duration = round(duration/1000)) %>%
@@ -688,18 +691,18 @@ Q22016$end_date <- mdy_hm(Q22016$end_date)
 
 ####END Q22016####
 
-####BEGIN Q3A2016#### 
+####BEGIN Q3A2016####
 
-#Read in Q3A2016 
+#Read in Q3A2016
 Q3A2016 <- read_csv("data/csv/2016-Q3-Trips-History-Data-1.csv", col_names=TRUE)
 
-# Rename the columns to match formatting from other sections.  
+# Rename the columns to match formatting from other sections.
 Q3A2016 <- Q3A2016 %>%
   rename(duration = "Duration (ms)", start_date = "Start date", start_station = "Start station", start_station_number = "Start station number", end_date = "End date", end_station = "End station", end_station_number = "End station number", bike_number = "Bike number", member_type = "Member Type")
 
-# Modify the file as follows...   
+# Modify the file as follows...
 Q3A2016 <- Q3A2016 %>%
-  # Add a column with the name of the file, to indicate quarter.    
+  # Add a column with the name of the file, to indicate quarter.
   mutate(quarter = "Q32016")  %>%
   # Convert milliseconds in duration column to seconds
   mutate(duration = round(duration/1000)) %>%
@@ -719,18 +722,18 @@ Q3A2016$end_date <- mdy_hm(Q3A2016$end_date)
 
 ####END Q3A2016####
 
-####BEGIN Q3B2016#### 
+####BEGIN Q3B2016####
 
-#Read in Q3B2016 
+#Read in Q3B2016
 Q3B2016 <- read_csv("data/csv/2016-Q3-Trips-History-Data-2.csv", col_names=TRUE)
 
-# Rename the columns to match formatting from other sections.  
+# Rename the columns to match formatting from other sections.
 Q3B2016 <- Q3B2016 %>%
   rename(duration = "Duration (ms)", start_date = "Start date", start_station = "Start station", start_station_number = "Start station number", end_date = "End date", end_station = "End station", end_station_number = "End station number", bike_number = "Bike number", member_type = "Member Type")
 
-# Modify the file as follows...   
+# Modify the file as follows...
 Q3B2016 <- Q3B2016 %>%
-  # Add a column with the name of the file, to indicate quarter.    
+  # Add a column with the name of the file, to indicate quarter.
   mutate(quarter = "Q32016")  %>%
   # Convert milliseconds in duration column to seconds
   mutate(duration = round(duration/1000)) %>%
@@ -750,18 +753,18 @@ Q3B2016$end_date <- mdy_hm(Q3B2016$end_date)
 
 ####END Q3B2016####
 
-####BEGIN Q42016#### 
+####BEGIN Q42016####
 
-#Read in Q42016 
+#Read in Q42016
 Q42016 <- read_csv("data/csv/2016-Q4-Trips-History-Data.csv", col_names=TRUE)
 
-# Rename the columns to match formatting from other sections.  
+# Rename the columns to match formatting from other sections.
 Q42016 <- Q42016 %>%
   rename(duration = "Duration (ms)", start_date = "Start date", start_station = "Start station", start_station_number = "Start station number", end_date = "End date", end_station = "End station", end_station_number = "End station number", bike_number = "Bike number", member_type = "Member Type")
 
-# Modify the file as follows...   
+# Modify the file as follows...
 Q42016 <- Q42016 %>%
-  # Add a column with the name of the file, to indicate quarter.    
+  # Add a column with the name of the file, to indicate quarter.
   mutate(quarter = "Q42016")  %>%
   # Convert milliseconds in duration column to seconds
   mutate(duration = round(duration/1000)) %>%
@@ -781,18 +784,18 @@ Q42016$end_date <- mdy_hm(Q42016$end_date)
 
 ####END Q42016####
 
-####BEGIN Q12017#### 
+####BEGIN Q12017####
 
-#Read in Q12017 
+#Read in Q12017
 Q12017 <- read_csv("data/csv/2017-Q1-Trips-History-Data.csv", col_names=TRUE)
 
-# Rename the columns to match formatting from other sections.  
+# Rename the columns to match formatting from other sections.
 Q12017 <- Q12017 %>%
   rename(duration = "Duration", start_date = "Start date", start_station = "Start station", start_station_number = "Start station number", end_date = "End date", end_station = "End station", end_station_number = "End station number", bike_number = "Bike number", member_type = "Member Type")
 
-# Modify the file as follows...   
+# Modify the file as follows...
 Q12017 <- Q12017 %>%
-  # Add a column with the name of the file, to indicate quarter.    
+  # Add a column with the name of the file, to indicate quarter.
   mutate(quarter = "Q12017")  %>%
   # Convert milliseconds in duration column to seconds
   mutate(duration = round(duration/1000)) %>%
@@ -815,8 +818,63 @@ Q12017$end_date <- mdy_hm(Q12017$end_date)
 # Bind together the data sets into one giant data set.
 allbike <- bind_rows(Q42010,Q12011,Q22011,Q32011,Q42011,Q12012,Q22012,Q32012,Q42012,Q12013,Q22013,Q32013,Q42013,Q12014,Q22014,Q32014,Q42014,Q12015,Q22015,Q32015,Q42015,Q12016,Q22016,Q3A2016,Q3B2016,Q42016,Q12017)
 
-# Convert the duration values to a valid period format with lubridate.  Have to do this after the bind, or the bind will not occur correctly.
-allbike$duration <- hms(allbike$duration)
+# Here is where we still need to correct daylight savings time. 
+
+# Calculate duration by subtracting start date from end date, and select the new trip_minutes column in place of the busted duration column. Also trim white space off the end of station names that are blocking grouping.
+allbike <- allbike %>%
+  mutate(trip_minutes=difftime(allbike$end_date, allbike$start_date, units = c("mins"))) %>%
+  select(quarter, trip_minutes, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type) %>%
+  mutate(start_station= str_trim(start_station)) %>%
+  mutate(end_station= str_trim(end_station))
+View(allbike)
 
 # Remove all but the allbike master dataset to free up memory
 rm(list=(ls()[ls()!="allbike"]))
+
+# Read in the csv of stations from Capital Bikeshare site https://gbfs.capitalbikeshare.com/gbfs/en/station_information.json
+stationlist <- read_csv("data/stations/stations.csv",
+                        col_types = cols(
+                          station_id = col_character(),
+                          short_name = col_character())
+                        )
+
+
+# Still need to write out the CSV
+write_csv(allbike, "data/allquarters/allquarters.csv")
+
+# Remove trailing whitespace from end of station names
+
+stations <- allbike %>%
+  group_by(start_station) %>%
+  summarise(count= n()) %>%
+  mutate(length= str_length(start_station)) %>%
+  arrange(count)
+View(stations)
+
+# Create a copy of allbike to play with
+allbikex <- allbike
+
+
+stations <- allbikex %>%
+  group_by(start_station,start_station_number) %>%
+  summarise(count= n()) %>%
+  mutate(length= str_length(start_station)) %>%
+  arrange(count)
+View(stations)
+
+str_trim(startfix, side = c("both"))
+View(allbike)
+# Group the stations
+stations <- allbike %>%
+group_by(start_station) %>%
+  summarise(count= n()) %>%
+  arrange(count)
+View(stations)
+duration <- allbike %>%
+  group_by(duration) %>%
+  summarise(count= n()) %>%
+  arrange(count)
+View(duration)
+
+# Write out the stations to examine
+write_csv(stations, "data/allquarters/stations.csv") 
