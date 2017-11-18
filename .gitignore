@@ -1,5 +1,7 @@
 # Ignore CSV folder, because data files too big.
 data/csv/*.csv
+data/stations/*.csv
+data/allquarters/*.csv
 
 # Created by https://www.gitignore.io/api/r,macos
 ### macOS ###
