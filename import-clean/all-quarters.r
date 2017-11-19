@@ -837,6 +837,13 @@ write_csv(allbike, "data/allquarters/allquarters.csv")
 
 ### WORKING ON JOINING STATION NAMES BACK TO BIKESHARE
 
+### If I don't want to run whole script above, just read in this code on new boot of R to load allbike
+allbike <- read_csv("data/allquarters/allquarters.csv")
+
+### Station searching
+stationsearch <- allbike %>%
+  filter(start_station == "Virginia Square")
+View(stationsearch)
 # Read in the csv of stations from Capital Bikeshare site https://gbfs.capitalbikeshare.com/gbfs/en/station_information.json
 stationlist <- read_csv("data/stations/stations.csv",
                         col_types = cols(
@@ -900,7 +907,7 @@ NotInEndStart <- NotInEndStart %>%
   distinct(station)
   
 # Write this out to a CSV 
-write_csv(NotInEndStart, "data/stations/StationsNotInOurData.csv")
+write_csv(NotInEndStart, "data/stations/OurStationsNotInTheirData.csv")
 
 # Figure out which of our stations are not in their data
 stnotinstation <- anti_join(stationlist,startstations, by=c("name" = "start_station"))
@@ -913,7 +920,7 @@ NotInTheirData <- NotInTheirData %>%
   distinct(name)
 
 # Write this out to a CSV 
-write_csv(NotInTheirData, "data/stations/StationsNotInTheirData.csv")
+write_csv(NotInTheirData, "data/stations/TheirStationsNotInOurData.csv")
 
 # Create a copy of allbike called xallbike, which I can remove if I need to. This is my working verison. 
 
