@@ -60,7 +60,6 @@ Q12011 <- read_csv("data/csv/2011-Q1-cabi-trip-history-data.csv", col_names= TRU
 # Rename the columns to match formatting from other sections.
 Q12011 <- Q12011 %>%
   rename(duration="Duration", start_date="Start date", end_date="End date", start_station="Start station", end_station="End station", bike_number="Bike#", member_type='Member Type')
-View(Q12011)
 
 Q12011 <- Q12011 %>%
   # Add a column with the name of the file, to indicate quarter.
@@ -91,7 +90,6 @@ Q22011 <- read_csv("data/csv/2011-Q2-cabi-trip-history-data.csv", col_names= TRU
 # Rename the columns to match formatting from other sections.
 Q22011 <- Q22011 %>%
   rename(duration="Duration", start_date="Start date", end_date="End date", start_station="Start station", end_station="End station", bike_number="Bike#", member_type='Member Type')
-View(Q22011)
 
 Q22011 <- Q22011 %>%
   # Add a column with the name of the file, to indicate quarter.
@@ -121,7 +119,6 @@ Q32011 <- read_csv("data/csv/2011-Q3-cabi-trip-history-data.csv", col_names= TRU
 # Rename the columns to match formatting from other sections.
 Q32011 <- Q32011 %>%
   rename(duration="Duration", start_date="Start date", end_date="End date", start_station="Start station", end_station="End station", bike_number="Bike#", member_type='Member Type')
-View(Q32011)
 
 Q32011 <- Q32011 %>%
   # Add a column with the name of the file, to indicate quarter.
@@ -151,7 +148,6 @@ Q42011 <- read_csv("data/csv/2011-Q4-cabi-trip-history-data.csv", col_names= TRU
 # Rename the columns to match formatting from other sections.
 Q42011 <- Q42011 %>%
   rename(duration="Duration", start_date="Start date", end_date="End date", start_station="Start station", end_station="End station", bike_number="Bike#", member_type='Member Type')
-View(Q42011)
 
 Q42011 <- Q42011 %>%
   # Add a column with the name of the file, to indicate quarter.
@@ -180,7 +176,7 @@ Q12012 <- read_csv("data/csv/2012-Q1-cabi-trip-history-data.csv", col_names= TRU
 # Rename the columns to match formatting from other sections.
 Q12012 <- Q12012 %>%
   rename(duration="Duration", start_date="Start date", end_date="End date", start_station="Start Station", end_station="End Station", bike_number="Bike#", member_type='Type')
-View(Q12012)
+
 
 Q12012 <- Q12012 %>%
   # Add a column with the name of the file, to indicate quarter.
@@ -206,7 +202,7 @@ Q22012 <- read_csv("data/csv/2012-Q2-cabi-trip-history-data.csv", col_names= TRU
 # Rename the columns to match formatting from other sections.
 Q22012 <- Q22012 %>%
   rename(duration="Duration", start_date="Start date", end_date="End date", start_station="Start Station", end_station="End Station", bike_number="Bike#", member_type='Bike Key')
-View(Q22012)
+
 
 Q22012 <- Q22012 %>%
   # Add a column with the name of the file, to indicate quarter.
@@ -827,7 +823,161 @@ allbike <- allbike %>%
   select(quarter, trip_minutes, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type) %>%
   mutate(start_station= str_trim(start_station)) %>%
   mutate(end_station= str_trim(end_station))
-View(allbike)
+
+
+# Convert bike station start_station names so they join properly
+allbike$start_station[allbike$start_station == "11th & K St NW"] <- "10th & K St NW"
+allbike$start_station[allbike$start_station == "12th & Hayes St"] <- "Pentagon City Metro / 12th & S Hayes St"
+allbike$start_station[allbike$start_station == "12th & Hayes St /  Pentagon City Metro"] <- "Pentagon City Metro / 12th & S Hayes St"
+allbike$start_station[allbike$start_station == "13th & U St NW"] <- "12th & U St NW"
+allbike$start_station[allbike$start_station == "15th & Hayes St"] <- "Pentagon City Metro / 12th & S Hayes St"
+allbike$start_station[allbike$start_station == "16th & U St NW"] <- "New Hampshire Ave & T St NW"
+allbike$start_station[allbike$start_station == "17th & K St NW [formerly 17th & L St NW]"] <- "17th & K St NW"
+allbike$start_station[allbike$start_station == "17th & Rhode Island Ave NW"] <- "Rhode Island & Connecticut Ave NW"
+allbike$start_station[allbike$start_station == "18th & Bell St"] <- "Crystal City Metro / 18th & Bell St"
+allbike$start_station[allbike$start_station == "18th & Hayes St"] <- "Aurora Hills Community Ctr/18th & Hayes St"
+allbike$start_station[allbike$start_station == "18th & Wyoming Ave NW"] <- "18th St & Wyoming Ave NW"
+allbike$start_station[allbike$start_station == "19th & New Hampshire Ave NW Dupont Circle south"] <- "20th & O St NW / Dupont South"
+allbike$start_station[allbike$start_station == "1st & N ST SE"] <- "1st & N St  SE"
+allbike$start_station[allbike$start_station == "20th & Bell St"] <- "Crystal City Metro / 18th & Bell St"
+allbike$start_station[allbike$start_station == "22nd & Eads St"] <- "Eads & 22nd St S"
+allbike$start_station[allbike$start_station == "23rd & Eads"] <- "Eads & 22nd St S"
+allbike$start_station[allbike$start_station == "23rd & Eads St"] <- "Eads & 22nd St S"
+allbike$start_station[allbike$start_station == "26th & Crystal Dr"] <- "26th & S Clark St"
+allbike$start_station[allbike$start_station == "33rd & Water St NW"] <- "34th & Water St NW"
+allbike$start_station[allbike$start_station == "34th St & Minnesota Ave SE"] <- "Randle Circle & Minnesota Ave SE"
+allbike$start_station[allbike$start_station == "4th & Adams St NE"] <- "4th & W St NE"
+allbike$start_station[allbike$start_station == "4th & Kennedy St NW"] <- "5th & Kennedy St NW"
+allbike$start_station[allbike$start_station == "4th St & Massachusetts Ave NW"] <- "3rd & H St NW"
+allbike$start_station[allbike$start_station == "4th St & Rhode Island Ave NE"] <- "4th & W St NE"
+allbike$start_station[allbike$start_station == "5th St & K St NW"] <- "5th & K St NW"
+allbike$start_station[allbike$start_station == "6th & Water St SW / SW Waterfront"] <- "Maine Ave & 7th St SW"
+allbike$start_station[allbike$start_station == "7th & F St NW / National Portrait Gallery"] <- "7th & F St NW/Portrait Gallery"
+allbike$start_station[allbike$start_station == "7th & Water St SW / SW Waterfront"] <- "Maine Ave & 7th St SW"
+allbike$start_station[allbike$start_station == "8th & F St NW"] <- "7th & F St NW/Portrait Gallery"
+allbike$start_station[allbike$start_station == "8th & F St NW / National Portrait Gallery"] <- "7th & F St NW/Portrait Gallery"
+allbike$start_station[allbike$start_station == "Bethesda Ave & Arlington Blvd"] <- "Bethesda Ave & Arlington Rd"
+allbike$start_station[allbike$start_station == "Central Library"] <- "Central Library / N Quincy St & 10th St N"
+allbike$start_station[allbike$start_station == "Connecticut Ave & Nebraska Ave NW"] <- "Connecticut & Nebraska Ave NW"
+allbike$start_station[allbike$start_station == "Court House Metro / Wilson Blvd & N Uhle St"] <- "Wilson Blvd & N Uhle St"
+allbike$start_station[allbike$start_station == "Fairfax Dr & Glebe Rd"] <- "Glebe Rd & 11th St N"
+allbike$start_station[allbike$start_station == "Fallsgove Dr & W Montgomery Ave"] <- "Fallsgrove Dr & W Montgomery Ave"
+allbike$start_station[allbike$start_station == "Garland Ave & Walden Rd"] <- "Dennis & Amherst Ave"
+allbike$start_station[allbike$start_station == "Idaho Ave & Newark St NW [on 2nd District patio]"] <- "Wisconsin Ave & Newark St NW"
+allbike$start_station[allbike$start_station == "King St Metro"] <- "King St Metro North / Cameron St"
+allbike$start_station[allbike$start_station == "Lee Hwy & N Nelson St"] <- "Lee Hwy & N Monroe St"
+allbike$start_station[allbike$start_station == "McPherson Square - 14th & H St NW"] <- "14th St & New York Ave NW"
+allbike$start_station[allbike$start_station == "McPherson Square / 14th & H St NW"] <- "14th St & New York Ave NW"
+allbike$start_station[allbike$start_station == "MLK Library/9th & G St NW"] <- "10th & G St NW"
+allbike$start_station[allbike$start_station == "N Adams St & Lee Hwy"] <- "Lee Hwy & N Adams St"
+allbike$start_station[allbike$start_station == "N Fillmore St & Clarendon Blvd"] <- "Clarendon Blvd & N Fillmore St"
+allbike$start_station[allbike$start_station == "N Highland St & Wilson Blvd"] <- "Clarendon Metro / Wilson Blvd & N Highland St"
+allbike$start_station[allbike$start_station == "N Nelson St & Lee Hwy"] <- "Lee Hwy & N Monroe St"
+allbike$start_station[allbike$start_station == "N Quincy St & Wilson Blvd"] <- "Wilson Blvd & N Quincy St"
+allbike$start_station[allbike$start_station == "New Hampshire Ave & T St NW [formerly 16th & U St NW]"] <- "New Hampshire Ave & T St NW"
+allbike$start_station[allbike$start_station == "Pentagon City Metro / 12th & Hayes St"] <- "Pentagon City Metro / 12th & S Hayes St"
+allbike$start_station[allbike$start_station == "Randle Circle & Minnesota Ave NE"] <- "Randle Circle & Minnesota Ave SE"
+allbike$start_station[allbike$start_station == "S Abingdon St & 36th St S"] <- "S Stafford & 34th St S"
+allbike$start_station[allbike$start_station == "Smithsonian / Jefferson Dr & 12th St SW"] <- "Smithsonian-National Mall / Jefferson Dr & 12th St SW"
+allbike$start_station[allbike$start_station == "Solutions & Greensboro Dr"] <- "Greensboro & International Dr"
+allbike$start_station[allbike$start_station == "Thomas Jefferson Cmty Ctr / 2nd St S & Ivy"] <- "TJ Cmty Ctr / 2nd St & S Old Glebe Rd"
+allbike$start_station[allbike$start_station == "Virginia Square"] <- "Virginia Square Metro / N Monroe St & 9th St N"
+allbike$start_station[allbike$start_station == "Wilson Blvd & N Oakland St"] <- "Virginia Square Metro / N Monroe St & 9th St N"
+allbike$start_station[allbike$start_station == "Wisconsin Ave & Macomb St NW"] <- "Wisconsin Ave & Newark St NW"	
+
+# Convert bike station end_station names so they join properly
+allbike$end_station[allbike$end_station == "11th & K St NW"] <- "10th & K St NW"
+allbike$end_station[allbike$end_station == "12th & Hayes St"] <- "Pentagon City Metro / 12th & S Hayes St"
+allbike$end_station[allbike$end_station == "12th & Hayes St /  Pentagon City Metro"] <- "Pentagon City Metro / 12th & S Hayes St"
+allbike$end_station[allbike$end_station == "13th & U St NW"] <- "12th & U St NW"
+allbike$end_station[allbike$end_station == "15th & Hayes St"] <- "Pentagon City Metro / 12th & S Hayes St"
+allbike$end_station[allbike$end_station == "16th & U St NW"] <- "New Hampshire Ave & T St NW"
+allbike$end_station[allbike$end_station == "17th & K St NW [formerly 17th & L St NW]"] <- "17th & K St NW"
+allbike$end_station[allbike$end_station == "17th & Rhode Island Ave NW"] <- "Rhode Island & Connecticut Ave NW"
+allbike$end_station[allbike$end_station == "18th & Bell St"] <- "Crystal City Metro / 18th & Bell St"
+allbike$end_station[allbike$end_station == "18th & Hayes St"] <- "Aurora Hills Community Ctr/18th & Hayes St"
+allbike$end_station[allbike$end_station == "18th & Wyoming Ave NW"] <- "18th St & Wyoming Ave NW"
+allbike$end_station[allbike$end_station == "19th & New Hampshire Ave NW Dupont Circle south"] <- "20th & O St NW / Dupont South"
+allbike$end_station[allbike$end_station == "1st & N ST SE"] <- "1st & N St  SE"
+allbike$end_station[allbike$end_station == "20th & Bell St"] <- "Crystal City Metro / 18th & Bell St"
+allbike$end_station[allbike$end_station == "22nd & Eads St"] <- "Eads & 22nd St S"
+allbike$end_station[allbike$end_station == "23rd & Eads"] <- "Eads & 22nd St S"
+allbike$end_station[allbike$end_station == "23rd & Eads St"] <- "Eads & 22nd St S"
+allbike$end_station[allbike$end_station == "26th & Crystal Dr"] <- "26th & S Clark St"
+allbike$end_station[allbike$end_station == "33rd & Water St NW"] <- "34th & Water St NW"
+allbike$end_station[allbike$end_station == "34th St & Minnesota Ave SE"] <- "Randle Circle & Minnesota Ave SE"
+allbike$end_station[allbike$end_station == "4th & Adams St NE"] <- "4th & W St NE"
+allbike$end_station[allbike$end_station == "4th & Kennedy St NW"] <- "5th & Kennedy St NW"
+allbike$end_station[allbike$end_station == "4th St & Massachusetts Ave NW"] <- "3rd & H St NW"
+allbike$end_station[allbike$end_station == "4th St & Rhode Island Ave NE"] <- "4th & W St NE"
+allbike$end_station[allbike$end_station == "5th St & K St NW"] <- "5th & K St NW"
+allbike$end_station[allbike$end_station == "6th & Water St SW / SW Waterfront"] <- "Maine Ave & 7th St SW"
+allbike$end_station[allbike$end_station == "7th & F St NW / National Portrait Gallery"] <- "7th & F St NW/Portrait Gallery"
+allbike$end_station[allbike$end_station == "7th & Water St SW / SW Waterfront"] <- "Maine Ave & 7th St SW"
+allbike$end_station[allbike$end_station == "8th & F St NW"] <- "7th & F St NW/Portrait Gallery"
+allbike$end_station[allbike$end_station == "8th & F St NW / National Portrait Gallery"] <- "7th & F St NW/Portrait Gallery"
+allbike$end_station[allbike$end_station == "Bethesda Ave & Arlington Blvd"] <- "Bethesda Ave & Arlington Rd"
+allbike$end_station[allbike$end_station == "Central Library"] <- "Central Library / N Quincy St & 10th St N"
+allbike$end_station[allbike$end_station == "Connecticut Ave & Nebraska Ave NW"] <- "Connecticut & Nebraska Ave NW"
+allbike$end_station[allbike$end_station == "Court House Metro / Wilson Blvd & N Uhle St"] <- "Wilson Blvd & N Uhle St"
+allbike$end_station[allbike$end_station == "Fairfax Dr & Glebe Rd"] <- "Glebe Rd & 11th St N"
+allbike$end_station[allbike$end_station == "Fallsgove Dr & W Montgomery Ave"] <- "Fallsgrove Dr & W Montgomery Ave"
+allbike$end_station[allbike$end_station == "Garland Ave & Walden Rd"] <- "Dennis & Amherst Ave"
+allbike$end_station[allbike$end_station == "Idaho Ave & Newark St NW [on 2nd District patio]"] <- "Wisconsin Ave & Newark St NW"
+allbike$end_station[allbike$end_station == "King St Metro"] <- "King St Metro North / Cameron St"
+allbike$end_station[allbike$end_station == "Lee Hwy & N Nelson St"] <- "Lee Hwy & N Monroe St"
+allbike$end_station[allbike$end_station == "McPherson Square - 14th & H St NW"] <- "14th St & New York Ave NW"
+allbike$end_station[allbike$end_station == "McPherson Square / 14th & H St NW"] <- "14th St & New York Ave NW"
+allbike$end_station[allbike$end_station == "MLK Library/9th & G St NW"] <- "10th & G St NW"
+allbike$end_station[allbike$end_station == "N Adams St & Lee Hwy"] <- "Lee Hwy & N Adams St"
+allbike$end_station[allbike$end_station == "N Fillmore St & Clarendon Blvd"] <- "Clarendon Blvd & N Fillmore St"
+allbike$end_station[allbike$end_station == "N Highland St & Wilson Blvd"] <- "Clarendon Metro / Wilson Blvd & N Highland St"
+allbike$end_station[allbike$end_station == "N Nelson St & Lee Hwy"] <- "Lee Hwy & N Monroe St"
+allbike$end_station[allbike$end_station == "N Quincy St & Wilson Blvd"] <- "Wilson Blvd & N Quincy St"
+allbike$end_station[allbike$end_station == "New Hampshire Ave & T St NW [formerly 16th & U St NW]"] <- "New Hampshire Ave & T St NW"
+allbike$end_station[allbike$end_station == "Pentagon City Metro / 12th & Hayes St"] <- "Pentagon City Metro / 12th & S Hayes St"
+allbike$end_station[allbike$end_station == "Randle Circle & Minnesota Ave NE"] <- "Randle Circle & Minnesota Ave SE"
+allbike$end_station[allbike$end_station == "S Abingdon St & 36th St S"] <- "S Stafford & 34th St S"
+allbike$end_station[allbike$end_station == "Smithsonian / Jefferson Dr & 12th St SW"] <- "Smithsonian-National Mall / Jefferson Dr & 12th St SW"
+allbike$end_station[allbike$end_station == "Solutions & Greensboro Dr"] <- "Greensboro & International Dr"
+allbike$end_station[allbike$end_station == "Thomas Jefferson Cmty Ctr / 2nd St S & Ivy"] <- "TJ Cmty Ctr / 2nd St & S Old Glebe Rd"
+allbike$end_station[allbike$end_station == "Virginia Square"] <- "Virginia Square Metro / N Monroe St & 9th St N"
+allbike$end_station[allbike$end_station == "Wilson Blvd & N Oakland St"] <- "Virginia Square Metro / N Monroe St & 9th St N"
+allbike$end_station[allbike$end_station == "Wisconsin Ave & Macomb St NW"] <- "Wisconsin Ave & Newark St NW"
+
+# Remove handful of values that don't have a station (NAs), and values at three stations that cannot be located (looks like pop-up stations)
+allbike <- allbike %>%
+  filter(start_station != "Alta Bicycle Share Demonstration Station") %>%
+  filter(start_station != "Alta Tech Office") %>%
+  filter(start_station != "Birthday Station") %>%
+  filter(!is.na(start_station)) %>%
+  filter(end_station != "Alta Bicycle Share Demonstration Station") %>%
+  filter(end_station != "Alta Tech Office") %>%
+  filter(end_station != "Birthday Station") %>%
+  filter(!is.na(end_station))
+
+# Read in the csv of stations from Capital Bikeshare site https://gbfs.capitalbikeshare.com/gbfs/en/station_information.json
+stationlist <- read_csv("data/stations/stations.csv",
+                        col_types = cols(
+                          station_id = col_character(),
+                          short_name = col_character())
+)
+
+# Join the stationlist to start station values 
+allbike <- left_join(allbike,stationlist, by=c("start_station" = "name"))
+
+# Rename and select columns 
+allbike <- allbike %>%
+  select(quarter:start_station,short_name,lat,lon,end_station,bike_number,member_type) %>%
+  rename(start_station_no="short_name",start_lat="lat",start_lon="lon")
+
+# Join the stationlist to end station values 
+allbike <- left_join(allbike,stationlist, by=c("end_station" = "name"))
+
+# Rename and select columns 
+allbike <- allbike %>%
+  select(quarter:end_station,short_name,lat,lon,bike_number,member_type) %>%
+  rename(end_station_no="short_name",end_lat="lat",end_lon="lon")
 
 # Remove all but the allbike master dataset to free up memory
 rm(list=(ls()[ls()!="allbike"]))
@@ -835,21 +985,17 @@ rm(list=(ls()[ls()!="allbike"]))
 # Still need to write out the CSV
 write_csv(allbike, "data/allquarters/allquarters.csv")
 
-### WORKING ON JOINING STATION NAMES BACK TO BIKESHARE
-
-### If I don't want to run whole script above, just read in this code on new boot of R to load allbike
+# If I don't want to run whole script above, just read in this code on new boot of R to load allbike
 allbike <- read_csv("data/allquarters/allquarters.csv")
+
+
+### CODE BELOW IS HOW I FIGURED OUT PROBLEMS WITH STATION MATCHING
 
 ### Station searching
 stationsearch <- allbike %>%
-  filter(start_station == "Virginia Square")
+  filter(start_station == "10th & K St NW")
 View(stationsearch)
-# Read in the csv of stations from Capital Bikeshare site https://gbfs.capitalbikeshare.com/gbfs/en/station_information.json
-stationlist <- read_csv("data/stations/stations.csv",
-                        col_types = cols(
-                          station_id = col_character(),
-                          short_name = col_character())
-)
+
 
 View(stationlist)
 
