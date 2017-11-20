@@ -76,10 +76,6 @@ ggplot(data=trip_percent ,aes(member_type, under30_percentage)) +
 
 ##Question 3: Can we uncover the "secret lives" of individual bikes, by measuring how a single bike moves across the city every day for a single year? By answering this question, it can help to develop future activities for community members who use the Bikeshare program such as group membership discounts and coupons for restaurants near the most popular stations.
 
-library('tidyverse');
-library('lubridate');
-
-
 ###create datasets for each year, 2011-2016; Exclude Q42010 and Q12017
 y2011 <- allbike %>%
   filter(str_detect(quarter, '2011'))
@@ -127,59 +123,4 @@ one_bikes_travel <- y2013 %>%
   arrange(start_date) 
 View(one_bikes_travel)
 rm(one_bikes_travel)
-
-
-
-
-
-
-
-
-
-
-##Group by member_type for all duration
-alltime <- allbike %>%
-  arrange(desc(trip_minutes))
-View(alltime)
-
-allduration <- allbike %>%
-  group_by(member_type) %>%
-  summarise(count= n()) %>%
-  arrange(desc(count)) %>%
-  rename("alltrips" = "count")
-
-
-
-
-View(allduration)
-
-
-##Filter out rows which have trip_minutes as 30 min or else.
-below30 <-allbike %>% 
-  select(quarter, trip_minutes, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number,member_type) %>%
-  filter(trip_minutes < 30)%>%
-  arrange(desc(trip_minutes))
-
-View (below30)
-
-##Group by member_type for duration less than,equal to 30 min
-mem_type <- below30 %>%
-  group_by(member_type) %>%
-  summarise(count= n()) %>%
-  arrange(desc(count))%>%
-  rename("below30trips" = "count")
-View(mem_type)
-
-
-##Left join tables allduration and below30 on the column mem_type and calculate percentage for under 30 min trips for different types of members
-trip_percent <- mem_type %>% 
-  left_join(allduration)%>%
-  mutate(
-    under30_percentage = (below30trips/alltrips)*100
-  )
-View(trip_percent)
-
-##Plot Question 2
-ggplot(data=trip_percent ,aes(member_type, under30_percentage)) +
-  geom_bar(stat="identity" , fill = "#4286f4") + ggtitle("Under 30 minute trips based on membership type")+labs(y= "Percentage (All trips under 30 min / All trips takens)", x = "Membership type")
 
