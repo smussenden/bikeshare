@@ -2,6 +2,7 @@
 
 #### If you've already run the cleaning script and have exported a csv, and don't want to run the script again, you can read it in directly here.  
 
+allbike <- read_csv("data/allquarters/allquarters.csv")
 
 #### Load required libraries. Note: loading tidverse also loads ggplot2.
 library('tidyverse')
