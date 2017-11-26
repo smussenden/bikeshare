@@ -487,7 +487,7 @@ Q42014 <- Q42014 %>%
 # # Convert the start date to a valid datetime format, using lubridate.
 Q42014$start_date <- mdy_hm(Q42014$start_date)
 # Convert the end date to a valid datetime format, using lubridate.
-Q42014$end_date <- mdy_hm(Q2014$end_date)
+Q42014$end_date <- mdy_hm(Q42014$end_date)
 
 ####END Q42014####
 
