@@ -13,6 +13,7 @@ library('stringr')
 ##Question 1: How do ridership patterns vary by season? 
 
 ##Answer 1: Between 2011 and 2016, ridership was substantially higher in the Summer (4.99 million rides) and Spring (4.53 million rides) than in the Fall (3.51 million rides) and Winter (2.30 million rides). This makes sense. More tourists visit Washington in the summer.  And it's especially unpleasant to ride a bike in extreme cold. See the code below we used to answer this question, and a plot that highlights our conclusion. 
+## Marketing problem: can we make this a less seasonal business. 
 
 ##First, filter out the Single Quarters of year 2010 and 2017 i.e. Q42010 and Q12017, so we are only analyzing full years. 
 seasons <-allbike %>% 
@@ -47,6 +48,7 @@ ggplot(data=PopularQ ,aes(quarter_period, trips/1000000)) +
 ##Question 2: There are two main types of riders who use the Capital Bikeshare system: registered members who buy monthly or annual memberships and casual users who buy single-trip, single-day or week-long passes.  How does the ridership behavior of these two groups differ?  Specificially, what percentage of registered members take trips under 30 minutes, avoiding paying a penalty for taking a longer ride?  And how does that compare to the percentage for casual members?
 
 ##Answer 2: Registered users are more likely to take a sub-30 minute trip than casual users. We found that 92.8 percent of trips by registered users were for less than 30 minutes, compared to 59.8 percent of casual users.  See the code below we used to answer this question, and a plot that highlights our conclusion. 
+## A possible marketing solution would be to target registered users to 
 
 # Group by member type and count the number of trips by type.
 all_trips <- allbike %>%
@@ -75,7 +77,7 @@ ggplot(data=trip_percent ,aes(member_type, under30_percentage)) +
   ggtitle("") +
   labs(y= "% of Trips Under 30 mins", x = "Membership type", title="Registered users take more short trips", subtitle="Source: Analysis of Capital Bikeshare ridership data")
 
-##Question 3: Can we uncover the "secret lives" of individual bikes, by measuring how a single bike moves across the city every day for a single year? By answering this question, it can help to develop future activities for community members who use the Bikeshare program such as group membership discounts and coupons for restaurants near the most popular stations.
+##Question 3: (DISTRIBUTION OF BIKES) Can we uncover the "secret lives" of individual bikes, by measuring how a single bike moves across the city every day for a single year? By answering this question, it can help to develop future activities for community members who use the Bikeshare program such as group membership discounts and coupons for restaurants near the most popular stations.
 
 ###create datasets for each year, 2011-2016; Exclude Q42010 and Q12017
 y2011 <- allbike %>%
@@ -125,3 +127,40 @@ one_bikes_travel <- y2013 %>%
 View(one_bikes_travel)
 rm(one_bikes_travel)
 
+## Question 4: What are the most popular combinations of stations, and are there bike lines along the most efficient routes between those stations?  
+
+popular <- allbike %>%
+  select(start_station, end_station, start_date, end_date, trip_minutes) %>%
+  filter(start_station != end_station) %>%
+  mutate(combos = str_c(start_station, "-", end_station)) %>%
+  group_by(combos) %>%
+  summarise(count= n()) %>%
+  arrange(desc(count)) %>%
+  filter(count > 10000)
+
+write_csv(popular, "data/popular_paths.csv")
+
+
+
+
+
+Join
+multiple strings into a single string.
+str_c(letters, LETTERS) 
+
+Steps:
+Concatenate start and end
+group by that concatenated column and count
+Sort
+Select the top 10. 
+Also calculate an average as a baseline. 
+
+And then subset by times of day. most popular combos change at different times of day? SEAN  
+
+## Question 5: Distribution of number of trips for individual bikes? GINA
+
+## Question 5: Are the bikeshare stations located in areas that easily connect with the city’s public transportation system, and how heavily are those used? (Audience: Capital Bikeshare and Washington, D.C. transportation planners). ROBERTO
+
+A.  Group by station and count. 
+B.  Calculate the average number of originating trips at metro station stations and non metro station stations. 
+  

@@ -1,0 +1,49 @@
+combos,count, on quickest route
+Lincoln Memorial-Jefferson Memorial,26851,missing part
+Eastern Market Metro / Pennsylvania Ave & 7th St SE-Lincoln Park / 13th & East Capitol St NE,25717,missing part
+Jefferson Dr & 14th St SW-Lincoln Memorial,25575,complete
+Lincoln Park / 13th & East Capitol St NE-Eastern Market Metro / Pennsylvania Ave & 7th St SE,24168,missing part
+Lincoln Memorial-Jefferson Dr & 14th St SW,23929,complete
+Adams Mill & Columbia Rd NW-Calvert St & Woodley Pl NW,23722,complete
+Calvert St & Woodley Pl NW-Adams Mill & Columbia Rd NW,21593,complete
+New Hampshire Ave & T St NW-Massachusetts Ave & Dupont Circle NW,20767,missing part
+15th & P St NW-Massachusetts Ave & Dupont Circle NW,18940,missing part
+Massachusetts Ave & Dupont Circle NW-15th & P St NW,18928,missing part
+Columbus Circle / Union Station-8th & F St NE,18915,missing part
+13th & D St NE-Columbus Circle / Union Station,17985,missing part
+Columbus Circle / Union Station-13th & D St NE,16308,missing part
+8th & F St NE-Columbus Circle / Union Station,15935,missing part
+Smithsonian-National Mall / Jefferson Dr & 12th St SW-Lincoln Memorial,15876,missing part
+Massachusetts Ave & Dupont Circle NW-New Hampshire Ave & T St NW,15652,missing part
+Columbus Circle / Union Station-11th & H St NE,15425,missing part
+11th & H St NE-Columbus Circle / Union Station,14579,missing part
+15th & P St NW-New Hampshire Ave & T St NW,14385,complete
+Columbus Circle / Union Station-13th & H St NE,14236, 
+Crystal City Metro / 18th & Bell St-27th & Crystal Dr,14167, 
+Lincoln Memorial-Smithsonian-National Mall / Jefferson Dr & 12th St SW,13978,
+13th & H St NE-Columbus Circle / Union Station,13967,
+Jefferson Memorial-Lincoln Memorial,13790,
+14th & V St NW-Massachusetts Ave & Dupont Circle NW,13612,
+D St & Maryland Ave NE-Columbus Circle / Union Station,13337,
+Eastern Market Metro / Pennsylvania Ave & 7th St SE-13th & D St NE,13188,
+New Hampshire Ave & T St NW-15th & P St NW,13019,
+13th & D St NE-Eastern Market Metro / Pennsylvania Ave & 7th St SE,12364,
+Jefferson Memorial-Jefferson Dr & 14th St SW,12313,
+Lincoln Park / 13th & East Capitol St NE-Columbus Circle / Union Station,12183,
+Crystal City Metro / 18th & Bell St-23rd & Crystal Dr,12041,
+Columbus Circle / Union Station-3rd & H St NE,11866,
+Massachusetts Ave & Dupont Circle NW-14th & V St NW,11863,
+Columbus Circle / Union Station-D St & Maryland Ave NE,11594,
+Eastern Market Metro / Pennsylvania Ave & 7th St SE-Potomac & Pennsylvania Ave SE,11458,
+Ohio Dr & West Basin Dr SW / MLK & FDR Memorials-Jefferson Memorial,11211,
+Jefferson Dr & 14th St SW-Smithsonian-National Mall / Jefferson Dr & 12th St SW,11003,
+Lincoln Memorial-Ohio Dr & West Basin Dr SW / MLK & FDR Memorials,10882,
+Jefferson Dr & 14th St SW-Jefferson Memorial,10879,
+27th & Crystal Dr-Crystal City Metro / 18th & Bell St,10862,
+Columbus Circle / Union Station-6th & H St NE,10649,
+17th & Corcoran St NW-17th & K St NW,10342,
+15th & P St NW-17th & Corcoran St NW,10315,
+17th & Corcoran St NW-15th & P St NW,10251,
+15th & P St NW-14th & V St NW,10098,
+New Hampshire Ave & T St NW-17th & Corcoran St NW,10089,
+Columbus Circle / Union Station-M St & New Jersey Ave SE,10069,
