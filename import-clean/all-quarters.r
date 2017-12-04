@@ -986,9 +986,8 @@ write_csv(allbike, "data/allquarters/allquarters.csv")
 # If I don't want to run whole script above, just read in this code on new boot of R to load allbike
 allbike <- read_csv("data/allquarters/allquarters.csv")
 
-######## DON'T RUN BELOW HERE
-
-### This code below is how we figured out problems with stations
+### You don't need to run the code below here.  
+### This code below is how we figured out problems with stations, and left it here for transparency.
 
 ### Station searching
 stationsearch <- allbike %>%

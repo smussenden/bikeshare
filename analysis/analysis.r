@@ -1,6 +1,7 @@
-#### This file is for analysis of bikeshare data.  Running the cleaning script, all-quarters.r will produce a dataframe called `allbike`. Use allbike to run these scripts against. 
+#### This file is for analysis of bikeshare data.  
+#### Running the cleaning script, import-clean/all-quarters.r will produce a dataframe called `allbike`. Use allbike to run these scripts on. 
 
-#### If you've already run the cleaning script and have exported a csv, and don't want to run the script again, you can read it in directly here.  
+#### If you've already run the cleaning script and have exported a csv, and don't want to run the script again, you can read it in directly here, with the following import field:   
 
 allbike <- read_csv("data/allquarters/allquarters.csv")
 
@@ -42,19 +43,16 @@ PopularQ$quarter_period[PopularQ$quarter_period =="Q4"] <- "Fall (Q4)"
 ggplot(data=PopularQ ,aes(quarter_period, trips/1000000)) +
   geom_bar(stat="identity" , fill = "#FF6666") + 
   ggtitle("") +
-  labs(y="Number of Rides (in Millions)", x ="Seasons",title="Bikeshare ridership highest in Summer", subtitle="Source: Analysis of Capital Bikeshare ridership data") + 
-  scale_y_continuous(labels = comma)
+  labs(y="Number of Rides (in Millions)", x ="Seasons",title="Bikeshare ridership highest in Summer", subtitle="Source: Analysis of Capital Bikeshare ridership data") 
 
 ##Question 2: There are two main types of riders who use the Capital Bikeshare system: registered members who buy monthly or annual memberships and casual users who buy single-trip, single-day or week-long passes.  How does the ridership behavior of these two groups differ?  Specificially, what percentage of registered members take trips under 30 minutes, avoiding paying a penalty for taking a longer ride?  And how does that compare to the percentage for casual members?
 
 ##Answer 2: Registered users are more likely to take a sub-30 minute trip than casual users. We found that 92.8 percent of trips by registered users were for less than 30 minutes, compared to 59.8 percent of casual users.  See the code below we used to answer this question, and a plot that highlights our conclusion. 
-## A possible marketing solution would be to target registered users to 
 
 # Group by member type and count the number of trips by type.
 all_trips <- allbike %>%
   group_by(member_type) %>%
   summarise(total_trips= n()) 
-View(mem_type)
 
 # Create a subset of the data with only trips less than 30 minutes, group by member type and count sub-30 minute trips for each group. 
 
@@ -77,58 +75,11 @@ ggplot(data=trip_percent ,aes(member_type, under30_percentage)) +
   ggtitle("") +
   labs(y= "% of Trips Under 30 mins", x = "Membership type", title="Registered users take more short trips", subtitle="Source: Analysis of Capital Bikeshare ridership data")
 
-##Question 3: (DISTRIBUTION OF BIKES) Can we uncover the "secret lives" of individual bikes, by measuring how a single bike moves across the city every day for a single year? By answering this question, it can help to develop future activities for community members who use the Bikeshare program such as group membership discounts and coupons for restaurants near the most popular stations.
+## Question 4: Are there dedicated bike lanes in the city along the most popular routes taken by people riding Capital Bikeshare bikes?  
 
-###create datasets for each year, 2011-2016; Exclude Q42010 and Q12017
-y2011 <- allbike %>%
-  filter(str_detect(quarter, '2011'))
-View(y2011)
+##Answer 4: To determine stations that people are riding between frequently, we selected all combinations of start station and end stations with more than 15,000 trips in our data, a total of 17. Using the Google Maps APIs routing tool, we looked at the most efficient bike route along each of those routes, and determined whether there were dedicated bike lanes along those routes. Of the 17, only four had bike lanes along the entire route. The other 13 had partial coverage.  
 
-
-y2012 <- allbike %>%
-  filter(str_detect(quarter, '2012'))
-View(y2012)
-
-
-y2013 <- allbike %>%
-  filter(str_detect(quarter, '2013'))
-View(y2013)
-
-
-y2013 <- allbike %>%
-  filter(str_detect(quarter, '2014'))
-View(y2014)
-
-
-y2015 <- allbike %>%
-  filter(str_detect(quarter, '2015'))
-View(y2015)
-
-
-y2016 <- allbike %>%
-  filter(str_detect(quarter, '2016'))
-View(y2016)
-
-###Find how many times each bike has been used.  y2013 can be replaced with any of the above year datasets or the allbike dataset
-bike_usage <- y2013 %>%
-  group_by(bike_number) %>%
-  summarise(count= n()) %>%
-  arrange(desc(count)) 
-View(bike_usage)
-rm(bike_usage)
-
-
-##one bike's travel through the city; y2013 can be replaced with any of the above year datasets or the allbike dataset
-###Choose a bike from the resulting bike_usage dataset above
-one_bikes_travel <- y2013 %>%
-  group_by(start_date) %>%
-  filter(str_detect(bike_number, 'W21384')) %>%
-  arrange(start_date) 
-View(one_bikes_travel)
-rm(one_bikes_travel)
-
-## Question 4: What are the most popular combinations of stations, and are there bike lines along the most efficient routes between those stations?  
-
+# Filter out rows where start station and end station are equal, create a new column with the combination of start station and end station, group by those combos and count, then get only those with more than 15K trips.
 popular <- allbike %>%
   select(start_station, end_station, start_date, end_date, trip_minutes) %>%
   filter(start_station != end_station) %>%
@@ -145,7 +96,7 @@ write_csv(popular, "data/popular_paths.csv")
 
 ## Future work: find a way to automate this process, using GGMap.
 
-## Read the data back in as popular 
+## Read the data back in as popular_paths_checked 
 popular_paths <- read_csv("data/popular_paths_checked.csv")
 
 ## Group routes by whether or not they've got complete or incomplete coverage along the routes
@@ -159,7 +110,7 @@ bike_paths <- popular_paths %>%
 ggplot(data=bike_paths ,aes(bike_lane_coverage, coverage)) +
   geom_bar(stat="identity" , fill = "#FF6666") + 
   ggtitle("") +
-  labs(y="Most Popular Bikeshare Routes", x ="Bike Lane Coverage Along Route",title="Most used bikeshare routes missing bike lanes", subtitle="Source: Analysis of Capital Bikeshare ridership data")
+  labs(y="Number of routes\n (more than 15K trips)", x ="Bike Lane coverage along route",title="Most used bikeshare routes \nare missing bike lanes", subtitle="Source: Analysis of Capital Bikeshare ridership data")
 
 
 
