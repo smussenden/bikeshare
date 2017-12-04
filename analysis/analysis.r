@@ -71,7 +71,7 @@ View(trip_percent)
 
 ##Plot the data
 ggplot(data=trip_percent ,aes(member_type, under30_percentage)) +
-  geom_bar(stat="identity" , fill = "#FF6666") +
+  geom_bar(stat="identity" , fill = "#ff6666") +
   ggtitle("") +
   labs(y= "% of Trips Under 30 mins", x = "Membership type", title="Registered users take more short trips", subtitle="Source: Analysis of Capital Bikeshare ridership data")
 
@@ -143,27 +143,7 @@ ggplot(data=bike_paths ,aes(bike_lane_coverage, coverage)) +
   ggtitle("") +
   labs(y="Number of routes\n (more than 15K trips)", x ="Bike Lane coverage along route",title="Most used bikeshare routes \nare missing bike lanes", subtitle="Source: Analysis of Capital Bikeshare ridership data")
 
-
-
-
-
-Join
-multiple strings into a single string.
-str_c(letters, LETTERS) 
-
-Steps:
-  Concatenate start and end
-group by that concatenated column and count
-Sort
-Select the top 10. 
-Also calculate an average as a baseline. 
-
-And then subset by times of day. most popular combos change at different times of day? SEAN  
-
 ## Question 5: Distribution of number of trips for individual bikes? GINA
 
-## Question 5: Are the bikeshare stations located in areas that easily connect with the city’s public transportation system, and how heavily are those used? (Audience: Capital Bikeshare and Washington, D.C. transportation planners). ROBERTO
 
-A.  Group by station and count. 
-B.  Calculate the average number of originating trips at metro station stations and non metro station stations. 
 
