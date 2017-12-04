@@ -76,7 +76,7 @@ ggplot(data=trip_percent ,aes(member_type, under30_percentage)) +
   labs(y= "% of Trips Under 30 mins", x = "Membership type", title="Registered users take more short trips", subtitle="Source: Analysis of Capital Bikeshare ridership data")
 
 ##Question 3: How many of the most used bike stations are near a Metro station?
-##Answer 3: 
+##Answer 3: Of the 20 most used starting stations, 40 percent (8 of 20) are within a half mile of a metro station, indicating that the positioning of bike stations near public transport is an important driver of ridership. 
 
 ## Group by start station and count, sort descending.  Then take the top 20 rows and write it out to a csv
 top_20_start_stations <- allbike %>%
@@ -86,24 +86,25 @@ top_20_start_stations <- allbike %>%
 top_20_start_stations <- head(top_20_start_stations, n=20) 
 write_csv(start_station,"data/proximity/proximity_raw.csv")
 
-# In CSV, mark down add a column indicating whether the station is within a half mile of the metro station. 
+# In CSV, proximity_raw add a column indicating whether the station is within a half mile of a metro station, as determined by examining location on Google Map and measuring distance. Save it as proximity.csv. 
 
-proximity <- read_csv("csv/proximity.csv")
+# Read in the newly edited csv with metro station proximity coding.
+proximity <- read_csv("data/proximity/proximity.csv")
+
+# Group by proximity to metro, count and calculate percentage.
 proximity_grouping <- proximity %>%
   group_by(close_to_metro) %>%
   summarise(count= n()) %>%
   mutate(percent=(count/20)*100)
 
-View(proximity_grouping)
-
+# Create a stacked bar chart 
 ggplot(data=proximity_grouping,aes(1, percent, fill=close_to_metro)) +
   geom_bar(stat="identity") + 
   ggtitle("") +
-  labs(y="Percentage of stations in top 20", x ="",title=" Stations are near a metro station", subtitle="Source: Analysis of Capital Bikeshare ridership data") +
+  labs(y="Percentage of stations in top 20", x ="",title="40 percent of most used stations \n are close to metro", subtitle="Source: Analysis of Capital Bikeshare ridership data") +
   guides(fill=guide_legend(title="Within \nhalf mile \nof Metro Station")) +
   theme(axis.ticks.x=element_blank(), axis.text.x=element_blank()) +
   scale_y_continuous(labels=function(x) paste0(x,"%"))
-
 
 ## Question 4: Are there dedicated bike lanes in the city along the most popular routes taken by people riding Capital Bikeshare bikes?  
 
