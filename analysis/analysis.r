@@ -94,7 +94,7 @@ write_csv(popular, "data/popular_paths.csv")
 
 ## Create a column called bike_lane_coverage. For each combo of stations, locate the start station on Google Maps, and the end station on Google Maps.  Obtain bike directions between the two points to obtain the preferred path. Visually analyze the degree to which dedicated bike lanes, indicated as solid green lines, are present on the path.  If there are bike lanes along the entire route, mark the cell in bike_lane_coverage as complete.  If there are bike lanes along part of the route, mark the cell as incomplete.  If there are no bike lanes, mark the cell as missing. Save this edited csv as popular_paths_checked.csv
 
-## Future work: find a way to automate this process, using GGMap.
+## Future work: find a way to automate this process, using GGMap. We couldn't make this work.
 
 ## Read the data back in as popular_paths_checked 
 popular_paths <- read_csv("data/popular_paths_checked.csv")
