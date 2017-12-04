@@ -14,6 +14,7 @@ library('lubridate')
 # Load stringr so we can tweak strings
 library('stringr')
 
+## Read in all the Quarters
 
 ####BEGIN Q42010####
 
@@ -815,15 +816,12 @@ Q12017$end_date <- mdy_hm(Q12017$end_date)
 # Bind together the data sets into one giant data set.
 allbike <- bind_rows(Q42010,Q12011,Q22011,Q32011,Q42011,Q12012,Q22012,Q32012,Q42012,Q12013,Q22013,Q32013,Q42013,Q12014,Q22014,Q32014,Q42014,Q12015,Q22015,Q32015,Q42015,Q12016,Q22016,Q3A2016,Q3B2016,Q42016,Q12017)
 
-################ Here is where we still need to correct daylight savings time. 
-
 # Calculate duration by subtracting start date from end date, and select the new trip_minutes column in place of the busted duration column. Also trim white space off the end of station names that are blocking grouping.
 allbike <- allbike %>%
   mutate(trip_minutes=difftime(allbike$end_date, allbike$start_date, units = c("mins"))) %>%
   select(quarter, trip_minutes, start_date, end_date, start_station, start_station_number, end_station, end_station_number, bike_number, member_type) %>%
   mutate(start_station= str_trim(start_station)) %>%
   mutate(end_station= str_trim(end_station))
-
 
 # Convert bike station start_station names so they join properly
 allbike$start_station[allbike$start_station == "11th & K St NW"] <- "10th & K St NW"
@@ -988,16 +986,14 @@ write_csv(allbike, "data/allquarters/allquarters.csv")
 # If I don't want to run whole script above, just read in this code on new boot of R to load allbike
 allbike <- read_csv("data/allquarters/allquarters.csv")
 
+######## DON'T RUN BELOW HERE
 
-### CODE BELOW IS HOW I FIGURED OUT PROBLEMS WITH STATION MATCHING
+### This code below is how we figured out problems with stations
 
 ### Station searching
 stationsearch <- allbike %>%
   filter(start_station == "10th & K St NW")
 View(stationsearch)
-
-
-View(stationlist)
 
 # Create a list of all the start stations in our allbike file.
 
@@ -1068,31 +1064,3 @@ NotInTheirData <- NotInTheirData %>%
 # Write this out to a CSV 
 write_csv(NotInTheirData, "data/stations/TheirStationsNotInOurData.csv")
 
-# Create a copy of allbike called xallbike, which I can remove if I need to. This is my working verison. 
-
-xallbike <- allbike
-
-
-stations <- allbikex %>%
-  group_by(start_station,start_station_number) %>%
-  summarise(count= n()) %>%
-  mutate(length= str_length(start_station)) %>%
-  arrange(count)
-View(stations)
-
-str_trim(startfix, side = c("both"))
-View(allbike)
-# Group the stations
-stations <- allbike %>%
-group_by(start_station) %>%
-  summarise(count= n()) %>%
-  arrange(count)
-View(stations)
-duration <- allbike %>%
-  group_by(duration) %>%
-  summarise(count= n()) %>%
-  arrange(count)
-View(duration)
-
-# Write out the stations to examine
-write_csv(stations, "data/allquarters/stations.csv") 

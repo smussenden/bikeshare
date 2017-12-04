@@ -13,7 +13,7 @@ library('stringr')
 ##Question 1: How do ridership patterns vary by season? 
 
 ##Answer 1: Between 2011 and 2016, ridership was substantially higher in the Summer (4.99 million rides) and Spring (4.53 million rides) than in the Fall (3.51 million rides) and Winter (2.30 million rides). This makes sense. More tourists visit Washington in the summer.  And it's especially unpleasant to ride a bike in extreme cold. See the code below we used to answer this question, and a plot that highlights our conclusion. 
-## Marketing problem: can we make this a less seasonal business. 
+## Marketing problem: can we make this a less seasonal business? 
 
 ##First, filter out the Single Quarters of year 2010 and 2017 i.e. Q42010 and Q12017, so we are only analyzing full years. 
 seasons <-allbike %>% 
@@ -136,9 +136,30 @@ popular <- allbike %>%
   group_by(combos) %>%
   summarise(count= n()) %>%
   arrange(desc(count)) %>%
-  filter(count > 10000)
+  filter(count > 15000)
 
+## Write a CSV of the data, and open in Excel
 write_csv(popular, "data/popular_paths.csv")
+
+## Create a column called bike_lane_coverage. For each combo of stations, locate the start station on Google Maps, and the end station on Google Maps.  Obtain bike directions between the two points to obtain the preferred path. Visually analyze the degree to which dedicated bike lanes, indicated as solid green lines, are present on the path.  If there are bike lanes along the entire route, mark the cell in bike_lane_coverage as complete.  If there are bike lanes along part of the route, mark the cell as incomplete.  If there are no bike lanes, mark the cell as missing. Save this edited csv as popular_paths_checked.csv
+
+## Future work: find a way to automate this process, using GGMap.
+
+## Read the data back in as popular 
+popular_paths <- read_csv("data/popular_paths_checked.csv")
+
+## Group routes by whether or not they've got complete or incomplete coverage along the routes
+bike_paths <- popular_paths %>%
+  na.omit %>%
+  group_by(bike_lane_coverage) %>%
+  summarise(coverage= n()) %>%
+  arrange(coverage)
+
+## Plot them out. 
+ggplot(data=bike_paths ,aes(bike_lane_coverage, coverage)) +
+  geom_bar(stat="identity" , fill = "#FF6666") + 
+  ggtitle("") +
+  labs(y="Most Popular Bikeshare Routes", x ="Bike Lane Coverage Along Route",title="Most used bikeshare routes missing bike lanes", subtitle="Source: Analysis of Capital Bikeshare ridership data")
 
 
 
