@@ -1,0 +1,3 @@
+## Question 4: Are there dedicated bike lanes in the city along the most popular routes taken by people riding Capital Bikeshare bikes?  
+
+##Answer 4: To determine stations that people are riding between frequently, we selected all combinations of start station and end stations with more than 15,000 trips in our data, a total of 17. Using the Google Maps APIs routing tool, we looked at the most efficient bike route along each of those routes, and determined whether there were dedicated bike lanes along those routes. Of the 17, only four had bike lanes along the entire route. The other 13 had partial coverage.  
