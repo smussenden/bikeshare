@@ -75,6 +75,36 @@ ggplot(data=trip_percent ,aes(member_type, under30_percentage)) +
   ggtitle("") +
   labs(y= "% of Trips Under 30 mins", x = "Membership type", title="Registered users take more short trips", subtitle="Source: Analysis of Capital Bikeshare ridership data")
 
+##Question 3: How many of the most used bike stations are near a Metro station?
+##Answer 3: 
+
+## Group by start station and count, sort descending.  Then take the top 20 rows and write it out to a csv
+top_20_start_stations <- allbike %>%
+  group_by(start_station) %>%
+  summarise(count= n()) %>%
+  arrange(desc(count))
+top_20_start_stations <- head(top_20_start_stations, n=20) 
+write_csv(start_station,"data/proximity/proximity_raw.csv")
+
+# In CSV, mark down add a column indicating whether the station is within a half mile of the metro station. 
+
+proximity <- read_csv("csv/proximity.csv")
+proximity_grouping <- proximity %>%
+  group_by(close_to_metro) %>%
+  summarise(count= n()) %>%
+  mutate(percent=(count/20)*100)
+
+View(proximity_grouping)
+
+ggplot(data=proximity_grouping,aes(1, percent, fill=close_to_metro)) +
+  geom_bar(stat="identity") + 
+  ggtitle("") +
+  labs(y="Percentage of stations in top 20", x ="",title=" Stations are near a metro station", subtitle="Source: Analysis of Capital Bikeshare ridership data") +
+  guides(fill=guide_legend(title="Within \nhalf mile \nof Metro Station")) +
+  theme(axis.ticks.x=element_blank(), axis.text.x=element_blank()) +
+  scale_y_continuous(labels=function(x) paste0(x,"%"))
+
+
 ## Question 4: Are there dedicated bike lanes in the city along the most popular routes taken by people riding Capital Bikeshare bikes?  
 
 ##Answer 4: To determine stations that people are riding between frequently, we selected all combinations of start station and end stations with more than 15,000 trips in our data, a total of 17. Using the Google Maps APIs routing tool, we looked at the most efficient bike route along each of those routes, and determined whether there were dedicated bike lanes along those routes. Of the 17, only four had bike lanes along the entire route. The other 13 had partial coverage.  
