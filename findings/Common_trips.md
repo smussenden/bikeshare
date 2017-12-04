@@ -2,7 +2,7 @@
 
 #### _Question_: Are there dedicated bike lanes in the city along the most popular routes taken by people riding Capital Bikeshare bikes?  
 
-![Popular routes](plots/common-trip.png?raw=true "Bike Paths")
+![Popular routes](plots/common-trips.png?raw=true "Bike Paths")
 
 ![Popular routes](plots/easternmarket-lincolnpark.png?raw=true "Google Map with Bike Paths")
 
