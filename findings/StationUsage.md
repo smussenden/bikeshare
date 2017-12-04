@@ -1,6 +1,6 @@
 ## Visualization Explanation for Start Station Usage.png
 
-![Start Station Usage.png](plots/Start Station Usage.png?raw=true "Title")
+![Start Station Usage.png](https://github.com/bikeshare/findings/plots/StartStationUsage.png?raw=true "Title")
 
 ## _Question:_ Which stations are the most and least used start stations? 
 
