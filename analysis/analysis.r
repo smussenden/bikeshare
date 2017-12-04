@@ -143,7 +143,7 @@ ggplot(data=bike_paths ,aes(bike_lane_coverage, coverage)) +
   ggtitle("") +
   labs(y="Number of routes\n (more than 15K trips)", x ="Bike Lane coverage along route",title="Most used bikeshare routes \nare missing bike lanes", subtitle="Source: Analysis of Capital Bikeshare ridership data")
 
-## Question 5: Distribution of number of trips for individual bikes? GINA
+## Question 5: Station usage by city vs suburbs
 
 
 
