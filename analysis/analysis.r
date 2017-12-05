@@ -189,4 +189,15 @@ ggplot(data=bike_paths ,aes(bike_lane_coverage, coverage)) +
  # Click on the words, 'Untitled Map', to give the map a title.
  # In the pop-up window, enter an appropriate map title in the 'map title' entry field.
  # In the pop-up window, enter an appropriate description of the map in the 'Description' entry field.
- 
+ # Click 'Save' in the pop-up window.
+ # Import top20startstationsnolist.csv by clicking on the 'Import' link under 'Untitled Layer' in the map legend.
+ # In the 'choose a file to import' pop-up window, click 'Select a file from your computer'.
+ # Navigate to top20startstationsnolist.csv in your file structure and select it.
+ # In the 'Choose columns to position your placemarks' pop-up window, check the checkbox next to start_lat and then select the radio button next to latitude.
+ # In the 'Choose columns to position your placemarks' pop-up window, check the checkbox next to start_lon and then select the radio button next to longitude.
+ # In the 'Choose columns to position your placemarks' pop-up window, click 'Continue'.
+ # In the 'Choose a column to title your markers' pop-up window, select the radio button next to start_station_no. 
+ # In the 'Choose a column to title your markers' pop-up window, click 'Finish'.
+ # In the map legend, click 'Add Layer'.
+ #                      
+
