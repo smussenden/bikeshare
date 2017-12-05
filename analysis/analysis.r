@@ -180,24 +180,33 @@ ggplot(data=bike_paths ,aes(bike_lane_coverage, coverage)) +
 # Write a CSV of the data
   write.csv(bottom20startstationnolist, "data/stations/bottom20startstationnolist.csv")
   
- # In a web browser, go to https://www.google.com/maps/about/mymaps/.
- # Click Get Started
- # If you are not already logged into Google, the website will ask you to log in.
- # If you already have a Google account, go ahead and log in.
- # If you do not already have a Google account, create one and log in.
- # Click the button for 'Create a New Map'.
- # Click on the words, 'Untitled Map', to give the map a title.
- # In the pop-up window, enter an appropriate map title in the 'map title' entry field.
- # In the pop-up window, enter an appropriate description of the map in the 'Description' entry field.
- # Click 'Save' in the pop-up window.
- # Import top20startstationsnolist.csv by clicking on the 'Import' link under 'Untitled Layer' in the map legend.
- # In the 'choose a file to import' pop-up window, click 'Select a file from your computer'.
- # Navigate to top20startstationsnolist.csv in your file structure and select it.
- # In the 'Choose columns to position your placemarks' pop-up window, check the checkbox next to start_lat and then select the radio button next to latitude.
- # In the 'Choose columns to position your placemarks' pop-up window, check the checkbox next to start_lon and then select the radio button next to longitude.
- # In the 'Choose columns to position your placemarks' pop-up window, click 'Continue'.
- # In the 'Choose a column to title your markers' pop-up window, select the radio button next to start_station_no. 
- # In the 'Choose a column to title your markers' pop-up window, click 'Finish'.
- # In the map legend, click 'Add Layer'.
- #                      
+1. In a web browser, go to https://www.google.com/maps/about/mymaps/.
+2. Click Get Started
+3. If you are not already logged into Google, the website will ask you to log in.
+4. If you already have a Google account, go ahead and log in.
+5. If you do not already have a Google account, create one and log in.
+6. Click the button for 'Create a New Map'.
+7. Click on the words, 'Untitled Map', to give the map a title.
+8. In the pop-up window, enter 'Start Station Usage' in the 'map title' entry field.
+9. In the pop-up window, enter 'Markers for the top and bottom 20 start stations in terms of usage' in the 'Description' entry field.
+10. Click 'Save' in the pop-up window.
+11. Import top20startstationsnolist.csv by clicking on the 'Import' link under 'Untitled Layer' in the map legend.
+12. In the 'choose a file to import' pop-up window, click 'Select a file from your computer'.
+13. Navigate to top20startstationsnolist.csv in your file structure and select it, then click 'Select' in the pop-up window.
+14. In the 'Choose columns to position your placemarks' pop-up window, check the checkbox next to start_lat and then select the radio button next to latitude.
+15. In the 'Choose columns to position your placemarks' pop-up window, check the checkbox next to start_lon and then select the radio button next to longitude.
+16. In the 'Choose columns to position your placemarks' pop-up window, click 'Continue'.
+17. In the 'Choose a column to title your markers' pop-up window, select the radio button next to start_station_no. 
+18. In the 'Choose a column to title your markers' pop-up window, click 'Finish'.
+19. In the map legend, click 'Add Layer'.
+20. Repeat steps 11-18 for bottom20startstationnolist.csv.
+21. In the map legend click the words 'top20startstationsnolist.csv'.
+22. In the pop-up window, change the layer name to 'Top 20 Start Stations'.
+23. In the map legend click the words 'bottom20startstationnolist.csv'.
+24. In the pop-up window, change the layer name to 'Bottom 20 Start Stations'.
+25. To change the markers for the 'Bottom' stations layer, hover your mouse over 'All Items' under 'Bottom 20 Start Stations' until you see a paint bucket icon to the right of 'All Items'.
+26. Click the paint bucket icon.
+27. Choose the red color with RGB (230,81,0) by clicking on the color square.
+28. Click anywhere on the map to close the legend pop-up box.
+29. Get the sharable link to the map by clicking the Share link on the legend.                  
 
