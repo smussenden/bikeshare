@@ -25,7 +25,7 @@ We asked several questions during our analysis.  For example:
 
 #### _How do ridership patterns vary by season?_ 
 
-![Ridership patters by seasons](/findings/plots/season_trips_plot.png?raw=true "Seasonal Ridership")
+![Ridership patters by seasons](plots/season_trips_plot.png?raw=true "Seasonal Ridership")
 
 #### Interpretation
 
