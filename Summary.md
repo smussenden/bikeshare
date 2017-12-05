@@ -1,4 +1,4 @@
-#INFM 600 Final Project Summary
+## INFM 600 Final Project Summary
 
 #### Introduction
 As consultants brought in by Capital Bikeshare to make data-driven business improvement recommendations, we analyzed six years of ridership data provided by the company. 
@@ -25,7 +25,7 @@ We asked several questions during our analysis.  For example:
 
 #### _How do ridership patterns vary by season?_ 
 
-
+![Ridership patters by seasons](../findings/plots/season_trips_plot.png?raw=true "Seasonal Ridership")
 
 #### Interpretation
 
