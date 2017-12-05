@@ -143,7 +143,50 @@ ggplot(data=bike_paths ,aes(bike_lane_coverage, coverage)) +
   ggtitle("") +
   labs(y="Number of routes\n (more than 15K trips)", x ="Bike Lane coverage along route",title="Most used bikeshare routes \nare missing bike lanes", subtitle="Source: Analysis of Capital Bikeshare ridership data")
 
-## Question 5: Station usage by city vs suburbs
+## Question 5: Which stations are the most and least used start stations?
+                     
+## Answer 5: StartStationUsage.png is a map of the most used start stations and least used start stations. The visualization shows that the top 20 start stations are clustered within the Washington D.C. boundary. The majority of the bottom 20 start stations are located outside D.C., in Northern Virginia and Maryland suburbs. 
 
 
+#Get the top 20 start stations, identifed by start station number and arrange in descending order.
+# Show columns: start_station_no, start_lat, start_lon, count
+  top20startstationsno <- allbike %>%
+    group_by(start_station_no,start_lat,start_lon) %>%
+    summarise(count= n()) %>%
+    arrange(desc(count)) %>%
+    head(20)
+  View(top20startstationsno)
 
+ # Show columns: start_station_no, start_lat, start_lon and write csv ; drop the count column from top20startstationsno.
+  top20startstationsnolist <- top20startstationsno2 %>%
+    select(start_station_no,start_lat,start_lon)
+  View(top20startstationsnolist)
+# Write a CSV of the data
+  write.csv(top20startstationsnolist, "data/stations/top20startstationsnolist.csv")
+ 
+  #Get the bottom 20 start stations, identifed by start station number and arrange in descending order.
+  # Show columns: start_station_no, start_lat, start_lon, count ; drop the count column from bottom20startstationno.
+    bottom20startstationno <- allbike %>%
+    group_by(start_station_no,start_lat,start_lon) %>%
+    summarise(count= n()) %>%
+    arrange(desc(count)) %>%
+    tail(20)
+  View(bottom20startstationno)
+
+ # Show columns: start_station_no, start_lat, start_lon and write csv  
+  bottom20startstationnolist <- bottom20startstationno %>%
+    select(start_station_no,start_lat,start_lon)
+  View(bottom20startstationnolist)
+# Write a CSV of the data
+  write.csv(bottom20startstationnolist, "data/stations/bottom20startstationnolist.csv")
+  
+ # In a web browser, go to https://www.google.com/maps/about/mymaps/.
+ # Click Get Started
+ # If you are not already logged into Google, the website will ask you to log in.
+ # If you already have a Google account, go ahead and log in.
+ # If you do not already have a Google account, create one and log in.
+ # Click the button for 'Create a New Map'.
+ # Click on the words, 'Untitled Map', to give the map a title.
+ # In the pop-up window, enter an appropriate map title in the 'map title' entry field.
+ # In the pop-up window, enter an appropriate description of the map in the 'Description' entry field.
+ 
