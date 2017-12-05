@@ -6,4 +6,10 @@ Download the [raw data from Capital Bikeshare](https://s3.amazonaws.com/capitalb
 
 For convenience as we work on this project, a zip file of the raw CSVs is [available for download here](https://drive.google.com/open?id=0BxTxfji0dcTMOVF4S05ubXlsNFU).
 
-The analysis is written in R, using RStudio.  
+## Final Project Deliverables
+* Fully commented cleaning script: [link](import-clean/all-quarters.r).
+* Fully commented analysis script: [link](analysis/analysis.r).
+* Written summary of project: [link](deliverables/3-summary.md).
+* Individual plots and findings: [link](deliverables/5-findings).
+* Presentation: [link](deliverables/6-presentation.pptx).
+* Group member contribution summary: [link](deliverables/4-contributions.md).
