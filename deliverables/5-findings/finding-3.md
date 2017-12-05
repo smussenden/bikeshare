@@ -1,4 +1,4 @@
-## Proximity to Metro Stations
+## Visualization Explanation for metro.png
 
 #### Question 3: How many of the most used bike stations are near a Metro station?
 
