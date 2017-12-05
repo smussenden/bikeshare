@@ -179,7 +179,8 @@ ggplot(data=bike_paths ,aes(bike_lane_coverage, coverage)) +
   View(bottom20startstationnolist)
 # Write a CSV of the data
   write.csv(bottom20startstationnolist, "data/stations/bottom20startstationnolist.csv")
-  
+
+## Outside of RStudio...                     
 1. In a web browser, go to https://www.google.com/maps/about/mymaps/.
 2. Click Get Started
 3. If you are not already logged into Google, the website will ask you to log in.
