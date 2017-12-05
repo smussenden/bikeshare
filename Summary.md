@@ -31,14 +31,14 @@ We asked several questions during our analysis.  For example:
 
 Between 2011 and 2016, ridership was substantially higher in the Summer (4.99 million rides) and Spring (4.53 million rides) than in the Fall (3.51 million rides) and Winter (2.30 million rides).  More tourists visit Washington in the summer.  And it's unpleasant to ride in extreme cold. Clearly, the weather significantly affects the ridership patterns.
 
-Argument for decision based on our finding
+#### Argument for decision based on our finding
 
 We think Capital Bikeshare can increase ridership in Fall and Spring by executing the following ideas:
 Ad campaigns aimed at promoting the benefits of riding, mentioning seasonal events like the Cherry Blossom Festival. 
 Reduced membership fees for people signing up during Fall and Spring seasons. 
 Targeted marketing efforts at commuters, who have more incentive to ride in all seasons. 
 
-Additional findings and recommendations
+#### Additional findings and recommendations
 
 We also found:
 
