@@ -352,3 +352,166 @@ ggplot(data=PopularQ_casual ,aes(quarter_period, percent)) +
   ggtitle("") +
   labs(y="Percentage of total trips", x ="Seasons",title="For casual users, less even distribution", subtitle="Source: Analysis of Capital Bikeshare ridership data") 
 
+# Question 8: How has the distribution of ridership by season changed over the years?
+
+# Answer 8: Though there have been minor changes in distribution by season each year from 2011 to 2016, the distribution has largely stayed the same. 
+
+year2011 <- subset(Qgroups, year == '2011', 
+                   select=c(quarter_period, year))
+
+year2012 <- subset(Qgroups, year == '2012', 
+                   select=c(quarter_period, year))
+
+year2013 <- subset(Qgroups, year == '2013', 
+                   select=c(quarter_period, year))
+
+year2014 <- subset(Qgroups, year == '2014', 
+                   select=c(quarter_period, year))
+
+year2015 <- subset(Qgroups, year == '2015', 
+                   select=c(quarter_period, year))
+
+year2016 <- subset(Qgroups, year == '2016', 
+                   select=c(quarter_period, year))
+
+
+### Group by quarter
+
+Popular2011 <- year2011 %>%
+  group_by(quarter_period) %>%
+  summarise(trips= n()) %>%
+  arrange(quarter_period)
+
+
+Popular2012 <- year2012 %>%
+  group_by(quarter_period) %>%
+  summarise(trips= n()) %>%
+  arrange(quarter_period)
+
+
+Popular2013 <- year2013 %>%
+  group_by(quarter_period) %>%
+  summarise(trips= n()) %>%
+  arrange(quarter_period)
+
+Popular2014 <- year2014 %>%
+  group_by(quarter_period) %>%
+  summarise(trips= n()) %>%
+  arrange(quarter_period)
+
+
+Popular2015 <- year2015 %>%
+  group_by(quarter_period) %>%
+  summarise(trips= n()) %>%
+  arrange(quarter_period)
+
+Popular2016 <- year2016 %>%
+  group_by(quarter_period) %>%
+  summarise(trips= n()) %>%
+  arrange(quarter_period)
+
+
+### Plots for year individually from year 2011 to 2016
+
+## 2011
+
+### plot preparation. 
+
+Popular2011$quarter_period[Popular2011$quarter_period =="Q1"] <- "Winter (Q1)"
+Popular2011$quarter_period[Popular2011$quarter_period =="Q2"] <- "Spring (Q2)"
+Popular2011$quarter_period[Popular2011$quarter_period =="Q3"] <- "Summer (Q3)"
+Popular2011$quarter_period[Popular2011$quarter_period =="Q4"] <- "Fall (Q4)"
+
+## Create a bar plot showing the count of trips by season. 
+
+ggplot(data=Popular2011 ,aes(quarter_period, trips/1000000)) +
+  geom_bar(stat="identity" , fill = "#FF6666") + 
+  ggtitle("") +
+  labs(y="Number of Rides (in Millions)", x ="Seasons",title="Bikeshare ridership during year 2011", subtitle="Source: Analysis of Capital Bikeshare ridership data") 
+
+## 2012
+
+### plot preparation. 
+
+Popular2012$quarter_period[Popular2012$quarter_period =="Q1"] <- "Winter (Q1)"
+Popular2012$quarter_period[Popular2012$quarter_period =="Q2"] <- "Spring (Q2)"
+Popular2012$quarter_period[Popular2012$quarter_period =="Q3"] <- "Summer (Q3)"
+Popular2012$quarter_period[Popular2012$quarter_period =="Q4"] <- "Fall (Q4)"
+
+## Create a bar plot showing the count of trips by season. 
+
+ggplot(data=Popular2012 ,aes(quarter_period, trips/1000000)) +
+  geom_bar(stat="identity" , fill = "#FF6666") + 
+  ggtitle("") +
+  labs(y="Number of Rides (in Millions)", x ="Seasons",title="Bikeshare ridership during year 2012", subtitle="Source: Analysis of Capital Bikeshare ridership data") 
+
+
+## 2013
+
+### plot preparation. 
+
+Popular2013$quarter_period[Popular2013$quarter_period =="Q1"] <- "Winter (Q1)"
+Popular2013$quarter_period[Popular2013$quarter_period =="Q2"] <- "Spring (Q2)"
+Popular2013$quarter_period[Popular2013$quarter_period =="Q3"] <- "Summer (Q3)"
+Popular2013$quarter_period[Popular2013$quarter_period =="Q4"] <- "Fall (Q4)"
+
+## Create a bar plot showing the count of trips by season. 
+
+ggplot(data=Popular2013 ,aes(quarter_period, trips/1000000)) +
+  geom_bar(stat="identity" , fill = "#FF6666") + 
+  ggtitle("") +
+  labs(y="Number of Rides (in Millions)", x ="Seasons",title="Bikeshare ridership during year 2013", subtitle="Source: Analysis of Capital Bikeshare ridership data") 
+
+
+## 2014
+
+### plot preparation. 
+
+Popular2014$quarter_period[Popular2014$quarter_period =="Q1"] <- "Winter (Q1)"
+Popular2014$quarter_period[Popular2014$quarter_period =="Q2"] <- "Spring (Q2)"
+Popular2014$quarter_period[Popular2014$quarter_period =="Q3"] <- "Summer (Q3)"
+Popular2014$quarter_period[Popular2014$quarter_period =="Q4"] <- "Fall (Q4)"
+
+## Create a bar plot showing the count of trips by season. 
+
+ggplot(data=Popular2014 ,aes(quarter_period, trips/1000000)) +
+  geom_bar(stat="identity" , fill = "#FF6666") + 
+  ggtitle("") +
+  labs(y="Number of Rides (in Millions)", x ="Seasons",title="Bikeshare ridership during year 2014", subtitle="Source: Analysis of Capital Bikeshare ridership data") 
+
+
+## 2015
+
+### plot preparation. 
+
+Popular2015$quarter_period[Popular2015$quarter_period =="Q1"] <- "Winter (Q1)"
+Popular2015$quarter_period[Popular2015$quarter_period =="Q2"] <- "Spring (Q2)"
+Popular2015$quarter_period[Popular2015$quarter_period =="Q3"] <- "Summer (Q3)"
+Popular2015$quarter_period[Popular2015$quarter_period =="Q4"] <- "Fall (Q4)"
+
+## Create a bar plot showing the count of trips by season. 
+
+ggplot(data=Popular2015 ,aes(quarter_period, trips/1000000)) +
+  geom_bar(stat="identity" , fill = "#FF6666") + 
+  ggtitle("") +
+  labs(y="Number of Rides (in Millions)", x ="Seasons",title="Bikeshare ridership during year 2015", subtitle="Source: Analysis of Capital Bikeshare ridership data") 
+
+
+## 2016
+
+### plot preparation. 
+
+Popular2016$quarter_period[Popular2016$quarter_period =="Q1"] <- "Winter (Q1)"
+Popular2016$quarter_period[Popular2016$quarter_period =="Q2"] <- "Spring (Q2)"
+Popular2016$quarter_period[Popular2016$quarter_period =="Q3"] <- "Summer (Q3)"
+Popular2016$quarter_period[Popular2016$quarter_period =="Q4"] <- "Fall (Q4)"
+
+## Create a bar plot showing the count of trips by season. 
+
+ggplot(data=Popular2016 ,aes(quarter_period, trips/1000000)) +
+  geom_bar(stat="identity" , fill = "#FF6666") + 
+  ggtitle("") +
+  labs(y="Number of Rides (in Millions)", x ="Seasons",title="Bikeshare ridership during year 2016", subtitle="Source: Analysis of Capital Bikeshare ridership data") 
+
+
+
