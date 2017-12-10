@@ -211,3 +211,144 @@ ggplot(data=bike_paths ,aes(bike_lane_coverage, coverage)) +
 # 28. Click anywhere on the map to close the legend pop-up box.
 # 29. Get the sharable link to the map by clicking the Share link on the legend.                  
 
+## Question 6: What hours of the day and days of the week are rides concentrated in? Is there any difference between registered and casual users?
+  
+## Answer 5: Rush hour in the morning and afternoon are by far the most popular times of day for travel.  This is especially true for registered users.  For casual users, weekend days are far more popular. 
+
+# Create a column in for day of week, and hour of day
+cal$day_start <- wday(cal$start_date, label=TRUE)
+cal$hour_start <-hour(cal$start_date)  
+
+# Do an group by and count by day of week and hour of day, to get one value per hour per day. 
+day_hour <- cal %>%
+  na.omit() %>%
+  group_by(day_start,hour_start) %>%
+  summarise(count= n()) %>%
+  arrange(day_start,hour_start)
+
+# Take off scientific notation, so legend on graph looks right.
+options(scipen=999)
+
+# Generate a heatmap with one square per hour per day of week, shaded according to number of rides in that block.
+ggplot(day_hour, aes(day_start, hour_start)) +
+  geom_tile(aes(fill = count), color = "white") +
+  scale_fill_gradient(low = "green", high = "red") +
+  ylab("Hour of Day") +
+  xlab("Day of Week") +
+  theme(legend.title = element_text(size = 10),
+        legend.text = element_text(size = 12),
+        plot.title = element_text(size=16),
+        axis.title=element_text(size=14,face="bold"),
+        axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(fill = "Number of Rides", title="For all riders, rush hour is busiest time")
+
+# We see several intersting things here.  Rush hour is by far the busiest time for Capital Bikeshare, with the morning rush hour -- especially the 8 a.m. block and the 5 p.m. and 6 p.m. blocks as the busiest.  On weekends, we see much more activity during the middle of the day. 
+
+# Now let's look at how this differs for casual riders vs. registered users. 
+
+# For registered users, do a group by and count by day of week and hour of day, to get one value per hour per day. 
+
+registered_day_hour <- cal %>%
+  filter(member_type == "Registered") %>%
+  na.omit() %>%
+  group_by(day_start,hour_start) %>%
+  summarise(count= n()) %>%
+  arrange(day_start,hour_start)
+
+# For registered users, generate a heatmap with one square per hour per day of week, shaded according to number of rides in that block.
+
+ggplot(registered_day_hour, aes(day_start, hour_start)) +
+  geom_tile(aes(fill = count), color = "white") +
+  scale_fill_gradient(low = "green", high = "red") +
+  ylab("Hour of Day") +
+  xlab("Day of Week") +
+  theme(legend.title = element_text(size = 10),
+        legend.text = element_text(size = 12),
+        plot.title = element_text(size=16),
+        axis.title=element_text(size=14,face="bold"),
+        axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(fill = "Number of Rides", title="For registered users, rush hour dominates")
+
+# For casual users, do a group by and count by day of week and hour of day, to get one value per hour per day. 
+
+casual_day_hour <- cal %>%
+  filter(member_type == "Casual") %>%
+  na.omit() %>%
+  group_by(day_start,hour_start) %>%
+  summarise(count= n()) %>%
+  arrange(day_start,hour_start)
+
+# For casual users, generate a heatmap with one square per hour per day of week, shaded according to number of rides in that block.
+
+ggplot(casual_day_hour, aes(day_start, hour_start)) +
+  geom_tile(aes(fill = count), color = "white") +
+  scale_fill_gradient(low = "green", high = "red") +
+  ylab("Hour of Day") +
+  xlab("Day of Week") +
+  theme(legend.title = element_text(size = 10),
+        legend.text = element_text(size = 12),
+        plot.title = element_text(size=16),
+        axis.title=element_text(size=14,face="bold"),
+        axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(fill = "Number of Rides", title="Weekends dominate for casual users")
+
+# An interesting comparison.  For registered users, much more activity during rush hour during the week.  For casual users, much more activity on weekends, with some bleed over to Mondays and Fridays, suggesting long weekends may have some impact. 
+
+## Question 7: How do different types of users -- registered vs. casual -- differ in usage by season? This builds off of question 1. 
+## Answer 7: The distribution of rides in each season is much more even for registered users than it is for casual users.  A much higher percentage of rides by casual users come in the summer and spring.  For registered users, rides are move evenly distributed between fall, summer and spring. 
+
+##First, filter out the Single Quarters of year 2010 and 2017 i.e. Q42010 and Q12017, so we are only analyzing full years. 
+seasons <-allbike %>% 
+  select(quarter, member_type) %>%
+  filter(quarter != "Q42010" & quarter !="Q12017")
+
+##Then, separate quarter column into quarter_period and year. e.g. value Q42015 --> Q4 and 2015
+Qgroups <- seasons %>%
+  separate(quarter, into = c("quarter_period", "year"), sep = 2)
+
+## Group by quarter_period and count the number of records in each quarter after filtering for only registered users, the calculate percentage. 
+PopularQ_reg <- Qgroups %>%
+  filter(member_type == "Registered") %>%
+  group_by(quarter_period) %>%
+  summarise(trips= n()) %>%
+  mutate(percent= (trips/sum(trips))*100) %>%
+  arrange(quarter_period)
+
+## In preparation to plot, rename quarters with season names.  Note: the seasons don't map perfectly to quarters.  For example, in reality, Winter is Dec. 21 to Mar. 21.  The quarter runs Jan. 1 to Mar. 30. But we'll make that clear in subtitle. 
+
+PopularQ_reg$quarter_period[PopularQ_reg$quarter_period =="Q1"] <- "Winter (Q1)"
+PopularQ_reg$quarter_period[PopularQ_reg$quarter_period =="Q2"] <- "Spring (Q2)"
+PopularQ_reg$quarter_period[PopularQ_reg$quarter_period =="Q3"] <- "Summer (Q3)"
+PopularQ_reg$quarter_period[PopularQ_reg$quarter_period =="Q4"] <- "Fall (Q4)"
+
+## Create a bar plot showing the count of trips by season. 
+
+ggplot(data=PopularQ_reg ,aes(quarter_period, percent)) +
+  geom_bar(stat="identity" , fill = "#FF6666") + 
+  ggtitle("") +
+  labs(y="Percentage of total trips", x ="Seasons",title="For registered users, more even distribution", subtitle="Source: Analysis of Capital Bikeshare ridership data") 
+
+## Now see how casual users compare
+
+## Group by quarter_period and count the number of records in each quarter after filtering for only casual users, the calculate percentage. 
+PopularQ_casual <- Qgroups %>%
+  filter(member_type == "Casual") %>%
+  group_by(quarter_period) %>%
+  summarise(trips= n()) %>%
+  mutate(percent= (trips/sum(trips))*100) %>%
+  arrange(quarter_period)
+
+## In preparation to plot, rename quarters with season names.  Note: the seasons don't map perfectly to quarters.  For example, in reality, Winter is Dec. 21 to Mar. 21.  The quarter runs Jan. 1 to Mar. 30. But we'll make that clear in subtitle. 
+
+PopularQ_casual$quarter_period[PopularQ_casual$quarter_period =="Q1"] <- "Winter (Q1)"
+PopularQ_casual$quarter_period[PopularQ_casual$quarter_period =="Q2"] <- "Spring (Q2)"
+PopularQ_casual$quarter_period[PopularQ_casual$quarter_period =="Q3"] <- "Summer (Q3)"
+PopularQ_casual$quarter_period[PopularQ_casual$quarter_period =="Q4"] <- "Fall (Q4)"
+
+## Create a bar plot showing the count of trips by season. 
+
+ggplot(data=PopularQ_casual ,aes(quarter_period, percent)) +
+  geom_bar(stat="identity" , fill = "#FF6666") + 
+  ggtitle("") +
+  labs(y="Percentage of total trips", x ="Seasons",title="For casual users, less even distribution", subtitle="Source: Analysis of Capital Bikeshare ridership data") 
+
