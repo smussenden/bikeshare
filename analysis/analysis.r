@@ -387,6 +387,51 @@ ggplot(year_heat_map, aes(day_start, month_start)) +
         axis.text.x = element_text(angle = 90, hjust = 1)) +
   labs(fill = "Number of Rides", title="For all riders, busy summer, quiet December")
 
+# Filter just for 2011-2016 data, then group by month and day of month, and count, but just registered
+year_heat_map_reg <- year_heat %>%
+  filter(year_start != 2010) %>%
+  filter(year_start != 2017) %>%
+  filter(member_type == "Registered") %>%
+  na.omit() %>%
+  group_by(day_start,month_start) %>%
+  summarise(count= n()) %>%
+  arrange(day_start,month_start)
+
+# Generate a heatmap with one square per day per month, shaded according to number of rides in that block. Just for registered users
+ggplot(year_heat_map_reg, aes(day_start, month_start)) +
+  geom_tile(aes(fill = count), color = "white") +
+  scale_fill_gradient(low = "green", high = "red") +
+  ylab("Month") +
+  xlab("Day of Month") +
+  theme(legend.title = element_text(size = 10),
+        legend.text = element_text(size = 12),
+        plot.title = element_text(size=16),
+        axis.title=element_text(size=14,face="bold"),
+        axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(fill = "Number of Rides", title="For registered riders, more consistent distribution")
+
+# Filter just for 2011-2016 data, then group by month and day of month, and count, but just casual
+year_heat_map_cas <- year_heat %>%
+  filter(year_start != 2010) %>%
+  filter(year_start != 2017) %>%
+  filter(member_type == "Casual") %>%
+  na.omit() %>%
+  group_by(day_start,month_start) %>%
+  summarise(count= n()) %>%
+  arrange(day_start,month_start)
+
+# Generate a heatmap with one square per day per month, shaded according to number of rides in that block. Just for casual
+ggplot(year_heat_map_cas, aes(day_start, month_start)) +
+  geom_tile(aes(fill = count), color = "white") +
+  scale_fill_gradient(low = "green", high = "red") +
+  ylab("Month") +
+  xlab("Day of Month") +
+  theme(legend.title = element_text(size = 10),
+        legend.text = element_text(size = 12),
+        plot.title = element_text(size=16),
+        axis.title=element_text(size=14,face="bold"),
+        axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(fill = "Number of Rides", title="For casual riders, a July 4 peak")
 
 
 # Question 8: How has the distribution of ridership by season changed over the years?
