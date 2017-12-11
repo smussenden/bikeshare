@@ -14,4 +14,4 @@
 
 ![Ridership patters by seasons in 2016](plots/Rplot2016.png?raw=true "Seasonal Ridership 2016")
 
-_Answer_: Between 2011 and 2016, ridership was substantially higher in the Summer (4.99 million rides) and Spring (4.53 million rides) than in the Fall (3.51 million rides) and Winter (2.30 million rides). This makes sense. More tourists visit Washington in the summer.  And it's especially unpleasant to ride a bike in extreme cold.  From this graph, we see that users of the Capital Bikeshare program tend to ride bikes during the warmer seasons of the year, and ride less frequently during colder seasons.
+_Answer_: Between 2011 and 2016, ridership over the seasons followed the same pattern, where in Summer had the highest ridership followed closely by Spring, then Fall and lastly Winter. This makes sense since people would prefer riding during warmer weathers as it is especially unpleasant to ride a bike in extreme cold and slightly more dangerous to ride on the roads.
