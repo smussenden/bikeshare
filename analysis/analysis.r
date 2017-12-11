@@ -215,9 +215,10 @@ ggplot(data=bike_paths ,aes(bike_lane_coverage, coverage)) +
   
 ## Answer 5: Rush hour in the morning and afternoon are by far the most popular times of day for travel.  This is especially true for registered users.  For casual users, weekend days are far more popular. 
 
-# Create a column in for day of week, and hour of day
+# Create a column in for day of week, and hour of day after creating a version.
 
 cal <- allbike  
+
 cal$day_start <- wday(cal$start_date, label=TRUE)
 cal$hour_start <-hour(cal$start_date)  
 
@@ -515,5 +516,23 @@ ggplot(data=Popular2016 ,aes(quarter_period, trips/1000000)) +
   ggtitle("") +
   labs(y="Number of Rides (in Millions)", x ="Seasons",title="Bikeshare ridership during year 2016", subtitle="Source: Analysis of Capital Bikeshare ridership data") 
 
+## Question 9: Gina
+# Create data frame
+station_typex <- allbike %>%
+  group_by(start_station) %>%
+  summarise(total= n(),
+            registered = sum(member_type == "Registered"),
+            casual = sum(member_type == "Casual")
+            ) %>%
+  mutate(percent_reg = (registered/total)*100) %>%
+  mutate(percent_cas = (casual/total)*100) %>%
+  mutate(log_total = (log(total))) %>%
+  filter(total > 100000)
 
+# First plot
+ggplot(station_typex, aes(x=percent_reg, y=percent_cas, size=total)) +
+  geom_point() 
 
+# Second plot
+ggplot(station_typex, aes(x=percent_reg, y=total)) +
+  geom_point() 
