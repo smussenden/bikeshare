@@ -1,4 +1,4 @@
-## Visualization Explanation for season_trips_plot.png
+## Finding 1
 
 #### _Question_: How do ridership patterns vary by season? 
 
