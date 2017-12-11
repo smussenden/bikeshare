@@ -1,9 +1,9 @@
 
-# Question 6
-What hours of the day and days of the week do most rides occur? And is there any difference in how rides by registered and casual users are distributed?
+## Finding 6
 
-# Answer 6
-The heatmap grid generated for this analysis shows that during the week, the morning rush hour (7 a.m. - 9 a.m.) and the evening rush hour (5 p.m. - 7 p.m.) are by far the busiest times of day, with lighter traffic in between.  The opposite is true on Saturdays and Sunday, with a larger concentration of ridership between 10 a.m. and 4 p.m. 
+#### _Question:_ What hours of the day and days of the week do most rides occur? And is there any difference in how rides by registered and casual users are distributed?
+
+ _Answer:_ The heatmap grid generated for this analysis shows that during the week, the morning rush hour (7 a.m. - 9 a.m.) and the evening rush hour (5 p.m. - 7 p.m.) are by far the busiest times of day, with lighter traffic in between.  The opposite is true on Saturdays and Sunday, with a larger concentration of ridership between 10 a.m. and 4 p.m. 
 
 ![all-heatmap.png](plots/all-heatmap.png?raw=true "Title")
 
