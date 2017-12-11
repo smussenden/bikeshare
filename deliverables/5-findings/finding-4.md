@@ -1,4 +1,4 @@
-## Visualization Explanation for common-trips.png
+## Finding 4
 
 #### _Question_: Are there dedicated bike lanes in the city along the most popular routes taken by people riding Capital Bikeshare bikes?  
 
