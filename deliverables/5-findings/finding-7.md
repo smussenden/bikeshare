@@ -13,4 +13,4 @@ But a much higher percentage of rides by casual users come in the Summer and Spr
 
 For registered users, rides are move evenly distributed between Fall, Summer and Spring, at least compared to casual users.
 
-![month-reg-heatmap.png](plots/month-cas-heatmap.png?raw=true "Title")  
+![month-reg-heatmap.png](plots/month-reg-heatmap.png?raw=true "Title")  
