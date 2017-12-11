@@ -218,7 +218,6 @@ ggplot(data=bike_paths ,aes(bike_lane_coverage, coverage)) +
 # Create a column in for day of week, and hour of day after creating a version.
 
 cal <- allbike  
-
 cal$day_start <- wday(cal$start_date, label=TRUE)
 cal$hour_start <-hour(cal$start_date)  
 
@@ -354,6 +353,41 @@ ggplot(data=PopularQ_casual ,aes(quarter_period, percent)) +
   geom_bar(stat="identity" , fill = "#FF6666") + 
   ggtitle("") +
   labs(y="Percentage of total trips", x ="Seasons",title="For casual users, less even distribution", subtitle="Source: Analysis of Capital Bikeshare ridership data") 
+
+## Create a data set that contains columns to build our calendar heat map
+year_heat <- allbike  
+year_heat$weekday_start <- wday(year_heat$start_date, label=TRUE)
+year_heat$hour_start <- hour(year_heat$start_date)  
+year_heat$month_start <- month(year_heat$start_date, label=TRUE)
+year_heat$day_start <- mday(year_heat$start_date)
+year_heat$year_start <-year(year_heat$start_date)
+
+# Filter just for 2011-2016 data, then group by month and day of month, and count
+year_heat_map <- year_heat %>%
+  filter(year_start != 2010) %>%
+  filter(year_start != 2017) %>%
+  na.omit() %>%
+  group_by(day_start,month_start) %>%
+  summarise(count= n()) %>%
+  arrange(day_start,month_start)
+
+# Take off scientific notation, so legend on graph looks right.
+options(scipen=999)
+
+# Generate a heatmap with one square per day per month, shaded according to number of rides in that block.
+ggplot(year_heat_map, aes(day_start, month_start)) +
+  geom_tile(aes(fill = count), color = "white") +
+  scale_fill_gradient(low = "green", high = "red") +
+  ylab("Month") +
+  xlab("Day of Month") +
+  theme(legend.title = element_text(size = 10),
+        legend.text = element_text(size = 12),
+        plot.title = element_text(size=16),
+        axis.title=element_text(size=14,face="bold"),
+        axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(fill = "Number of Rides", title="For all riders, busy summer, quiet December")
+
+
 
 # Question 8: How has the distribution of ridership by season changed over the years?
 
