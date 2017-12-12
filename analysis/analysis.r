@@ -670,10 +670,52 @@ rm(ss_reg_cas_bottom)
 # Write a CSV of the data
 write_csv(ss_reg_cas_bottom, "data/stations/ss_reg_cas_bottom.csv")
 
+## Outside of RStudio...                     
+# 1. In a web browser, go to https://www.google.com/maps/about/mymaps/.
+# 2. Click Get Started
+# 3. If you are not already logged into Google, the website will ask you to log in.
+# 4. If you already have a Google account, go ahead and log in.
+# 5. If you do not already have a Google account, create one and log in.
+# 6. Click the button for 'Create a New Map'.
+# 7. Click on the words, 'Untitled Map', to give the map a title.
+# 8. In the pop-up window, enter 'Top 20 Start Stations' in the 'map title' entry field.
+# 9. In the pop-up window, enter 'Markers for the top and bottom 20 start stations in terms of usage' in the 'Description' entry field.
+# 10. Click 'Save' in the pop-up window.
+# 11. Import ss_reg_cas_top.csv by clicking on the 'Import' link under 'Untitled Layer' in the map legend.
+# 12. In the 'choose a file to import' pop-up window, click 'Select a file from your computer'.
+# 13. Navigate to ss_reg_cas_top.csv in your file structure and select it, then click 'Select' in the pop-up window.
+# 14. In the 'Choose columns to position your placemarks' pop-up window, check the checkbox next to start_lat and then select the radio button next to latitude.
+# 15. In the 'Choose columns to position your placemarks' pop-up window, check the checkbox next to start_lon and then select the radio button next to longitude.
+# 16. In the 'Choose columns to position your placemarks' pop-up window, click 'Continue'.
+# 17. In the 'Choose a column to title your markers' pop-up window, select the radio button next to start_station_no. 
+# 18. In the 'Choose a column to title your markers' pop-up window, click 'Finish'.
+# 19. In the map legend, click 'Add Layer'.
+# 20. Repeat steps 11-18 for ss_reg_cas_top.csv to add the same file to a second layer.
+# 21. Rename the first layer: In the map legend click the words 'ss_reg_cas_top.csv'.
+# 22. In the pop-up window, change the layer name to 'Member Type - Registered'
+# 23. Rename the second layer: In the map legend click the words 'ss_reg_cas_top.csv'.
+# 24. In the pop-up window, change the layer name to 'Member Type - Casual'.
+# 25. In the Registered Layer, click any marker on the map. 
+# 26. In the pop-up legend, click the icon that looks like a pencil to edit the fields displayed.
+# 27. Uncheck start_lat, start_lon, casual and percent_cas and Click Save
+# 28. In the Registered Layer, click on the words 'Uniform Style' and change to 'Individual Style'. Each station will now have a marker listed in the legend.
+# 29. In the Registered Layer, click on each station marker where casual users are the minority and press delete on your keyboard to remove the station(s).
+# 30. In the Casual Layer, click any marker on the map. 
+# 31. In the pop-up legend, click the icon that looks like a pencil to edit the fields displayed.
+# 32. Uncheck start_lat, start_lon, registered and percent_reg and Click Save
+# 33. In the Casual Layer, To change the markers for the casual riders, hover your mouse over 'All Items' under 'Member Type - Casual' until you see a paint bucket icon to the right of 'All Items'.
+# 34. Click the paint bucket icon.
+# 35. Choose the red color with RGB (230,81,0) by clicking on the color square.
+# 36. Click anywhere on the map to close the legend pop-up box.
+# 37. In the Casual Layer, click on the words 'Uniform Style' and change to 'Individual Style'. Each station will now have a marker listed in the legend.
+# 38. In the Casual Layer, click on each station marker where registered users are the minority and press delete on your keyboard to remove the station(s).
+# 39. Repeat steps 11-38 for ss_reg_cas_bottom.csv.
+# 40. Get the sharable link to the map by clicking the Share link on the legend.                            
+
 # Question 10 
 # Question: The D.C. Metro shut down on March 15, 2016 for an entire day for mandatory safety repairs.  How did this shutdown affect Capital Bikeshare usage, as people searched for alternate modes of transport to work?  This is a small way of getting at the question of how delays and problems on the Metro affect the Capital Bikeshare system. 
 # Answer: March 15 was a Tuesday. We examined total rides for each Tuesday closest to that date in each year between 2011 and 2017.  We found that the number of trips on the Metro shutdown date was not significantly higher than the prior two years, when there was a similar outdoor temperature according to the National Weather Service and the Metro system was operating normally.  It was much higher than 2017, which was an extemely cold day, according to National Weather Service data. 
-#https://www.nytimes.com/2016/03/17/us/metro-shutdown-washington.html?_r=0
+# https://www.nytimes.com/2016/03/17/us/metro-shutdown-washington.html?_r=0
 
 # Make a copy of allbike called metro_shutdown        
 metro_shutdown <- allbike    
