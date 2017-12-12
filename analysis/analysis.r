@@ -615,3 +615,63 @@ ggplot(station_typex, aes(x=percent_reg, y=percent_cas, size=total)) +
 # Second plot
 ggplot(station_typex, aes(x=percent_reg, y=total)) +
   geom_point() 
+
+
+# Question 10 
+# Question: The D.C. Metro shut down on March 15, 2016 for an entire day for mandatory safety repairs.  How did this shutdown affect Capital Bikeshare usage, as people searched for alternate modes of transport to work?  This is a small way of getting at the question of how delays and problems on the Metro affect the Capital Bikeshare system. 
+# Answer: March 15 was a Tuesday. We examined total rides for each Tuesday closest to that date in each year between 2011 and 2017.  We found that the number of trips on the Metro shutdown date was not significantly higher than the prior two years, when there was a similar outdoor temperature according to the National Weather Service and the Metro system was operating normally.  It was much higher than 2017, which was an extemely cold day, according to National Weather Service data. 
+#https://www.nytimes.com/2016/03/17/us/metro-shutdown-washington.html?_r=0
+
+# Make a copy of allbike called metro_shutdown        
+metro_shutdown <- allquarters      
+# Add a column with date
+metro_shutdown$date <- date(metro_shutdown$start_date)
+# Filter out only the Tuesdays closest to March 15 in each year.  Note: the Metro shut down for a full day for safety repairs on March 15 2016.  We're comparing how traffic was on the Tuesday closest to March 15 in each year.  Group by and count total trips.
+shutdown<- metro_shutdown %>%
+  filter(date == as.Date("2016-03-15") | date== as.Date("2017-03-14") |date == as.Date("2015-03-17") | date== as.Date("2014-03-11") |date == as.Date("2013-03-12") | date== as.Date("2012-03-13") | date == as.Date("2011-03-15"))%>%
+  group_by(date)%>%
+  summarise(count=n())
+
+# Create a bar plot of trips, labeling the 2016 shutdown. 
+ggplot(data=shutdown ,aes(as.character(date), count)) +
+  geom_bar(stat="identity", fill="#FF6666") + 
+  ggtitle("") +
+  labs(y="trip count", x ="Tuesday Closest to March 15 by Year",title="Day-long Metro system shutdown \ndidn't see huge spike in bike ridership", subtitle="Source: Analysis of Capital Bikeshare ridership data")  +
+  theme(axis.text.x = element_text(angle = 45, hjust= 1)) +
+  annotate("text", x=6, y=4000, label="2016 Day-long \nMetro Shutdown", angle=90)
+
+
+# Question 11 
+# Question: Over the years, has Capital Bikeshare increased the number of rides by registered users?
+# Answer: Yes, it has increased the number of rides by registered users over the years, but that's only because ridership is going up overall.  The ratio of rides by registered users to casual users has stayed pretty constant each year, with about 4 in 5 rides taken by registered users. 
+
+# rename allbike and create a new column with year
+members_year <- allbike
+members_year$year <- year(members_year$start_date)
+  
+# Count the number of members and calculate percentage, dropping 2010 and 2017 so we have complete years. 
+member_count <- members_year %>%
+  group_by(year) %>%
+  na.omit() %>%
+  summarise(total= n(),
+            registered = sum(member_type == "Registered"),
+            casual = sum(member_type == "Casual")
+  ) %>%
+  mutate(percent_reg = (registered/total)*100) %>%
+  mutate(percent_cas = (casual/total)*100) %>%
+  filter(year != 2017) %>%
+  filter(year != 2010)
+
+# Create a plot of overal ridership by member type
+ggplot(member_count, aes(year)) + 
+  geom_line(aes(y = registered/1000000, colour = "registered")) + 
+  geom_line(aes(y = casual/1000000, colour = "casual")) +
+  labs(y="Number of Rides (in Millions)", x ="Year",title="Increase in total rides by \n both casual and registered users", subtitle="Source: Analysis of Capital Bikeshare ridership data", colour="Member type") 
+
+# Create a plot of percentage
+ggplot(member_count, aes(year)) + 
+  geom_line(aes(y = percent_reg, colour = "registered")) + 
+  geom_line(aes(y = percent_cas, colour = "casual")) +
+  labs(y="Percentage of trips", x ="Year",title="Ratio of casual to registered rides \n has stayed relatively constant", subtitle="Source: Analysis of Capital Bikeshare ridership data", colour="Member type") 
+
+
