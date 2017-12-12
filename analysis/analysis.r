@@ -213,7 +213,7 @@ ggplot(data=bike_paths ,aes(bike_lane_coverage, coverage)) +
 
 ## Question 6: What hours of the day and days of the week are rides concentrated in? Is there any difference between registered and casual users?
   
-## Answer 5: Rush hour in the morning and afternoon are by far the most popular times of day for travel.  This is especially true for registered users.  For casual users, weekend days are far more popular. 
+## Answer 6: Rush hour in the morning and afternoon are by far the most popular times of day for travel.  This is especially true for registered users.  For casual users, weekend days are far more popular. 
 
 # Create a column in for day of week, and hour of day after creating a version.
 
@@ -623,7 +623,7 @@ ggplot(station_typex, aes(x=percent_reg, y=total)) +
 #https://www.nytimes.com/2016/03/17/us/metro-shutdown-washington.html?_r=0
 
 # Make a copy of allbike called metro_shutdown        
-metro_shutdown <- allquarters      
+metro_shutdown <- allbike    
 # Add a column with date
 metro_shutdown$date <- date(metro_shutdown$start_date)
 # Filter out only the Tuesdays closest to March 15 in each year.  Note: the Metro shut down for a full day for safety repairs on March 15 2016.  We're comparing how traffic was on the Tuesday closest to March 15 in each year.  Group by and count total trips.
