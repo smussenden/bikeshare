@@ -595,27 +595,91 @@ ggplot(data=Popular2016 ,aes(quarter_period, trips/1000000)) +
   ggtitle("") +
   labs(y="Number of Rides (in Millions)", x ="Seasons",title="Bikeshare ridership during year 2016", subtitle="Source: Analysis of Capital Bikeshare ridership data") 
 
-## Question 9: Gina
-# Create data frame
-station_typex <- allbike %>%
-  group_by(start_station) %>%
-  summarise(total= n(),
-            registered = sum(member_type == "Registered"),
-            casual = sum(member_type == "Casual")
-            ) %>%
+## Question 9: Amongst the most used and least used stations, are there any patterns about usage by registered users versus casual users?
+
+#Get the top 20 start stations, identifed by start station number and arrange in descending order.
+# Show columns: start_station_no, start_station, start_lat, start_lon, count
+top20startstationsno <- allbike %>%
+  group_by(start_station_no,start_station,start_lat,start_lon) %>%
+  summarise(count= n()) %>%
+  arrange(desc(count)) %>%
+  head(20)
+View(top20startstationsno)
+
+# Show columns: start_station_no, start_station, start_lat, start_lon and write csv ; drop the count column from top20startstationsno.
+top20startstationsnolist <- top20startstationsno %>%
+  select(start_station_no,start_station,start_lat,start_lon)
+View(top20startstationsnolist)
+
+
+#Get the bottom 20 start stations, identifed by start station number and arrange in descending order.
+# Show columns: start_station_no, start_station, start_lat, start_lon, count ; drop the count column from bottom20startstationno.
+bottom20startstationno <- allbike %>%
+  group_by(start_station_no,start_station,start_lat,start_lon) %>%
+  summarise(count= n()) %>%
+  arrange(desc(count)) %>%
+  tail(20)
+View(bottom20startstationno)
+
+# Show columns: start_station_no, start_station, start_lat, start_lon  
+bottom20startstationnolist <- bottom20startstationno %>%
+  select(start_station_no,start_station,start_lat,start_lon)
+View(bottom20startstationnolist)
+
+# Get the number of registered users for each start station
+# Show columns: start_station_no, start_station, registered 
+ss_reg<- allbike %>%
+  group_by(start_station_no,start_station,member_type) %>%
+  filter(member_type=="Registered") %>%
+  summarise(registered= n()) 
+View(ss_reg)
+rm(ss_reg)
+
+# Get the number of casual users for each start station
+# Show columns: start_station_no, start_station,casual
+ss_cas<- allbike %>%
+  group_by(start_station_no,start_station,member_type) %>%
+  filter(member_type=="Casual") %>%
+  summarise(casual= n()) 
+View(ss_cas)
+rm(ss_cas)
+
+# Join registered riders with casual riders on start station number
+ss_reg_cas <- inner_join(ss_reg, ss_cas, by = "start_station_no", copy = FALSE)
+View(ss_reg_cas)
+rm(ss_reg_cas)
+
+#Calculate the percentages of registered riders and casual riders
+#drop unneeded columns
+ss_reg_cas <- ss_reg_cas %>%
+  rename(start_station = "start_station.x")%>%
+  mutate(total= sum(registered,casual))%>%
   mutate(percent_reg = (registered/total)*100) %>%
   mutate(percent_cas = (casual/total)*100) %>%
-  mutate(log_total = (log(total))) %>%
-  filter(total > 100000)
+  select(-member_type.x,-member_type.y,-start_station.y)
+View(ss_reg_cas)
 
-# First plot
-ggplot(station_typex, aes(x=percent_reg, y=percent_cas, size=total)) +
-  geom_point() 
+#Join top 20 station list with registered and casual riders list
+# Drop unneeded column
+ss_reg_cas_top <- inner_join(top20startstationsnolist, ss_reg_cas, by = "start_station_no", copy = FALSE)%>%
+  rename(start_station = "start_station.x")%>%
+  select(-start_station.y)
+View(ss_reg_cas_top)
+rm(ss_reg_cas_top)
 
-# Second plot
-ggplot(station_typex, aes(x=percent_reg, y=total)) +
-  geom_point() 
+# Write a CSV of the data
+write_csv(ss_reg_cas_top, "data/stations/ss_reg_cas_top.csv")
 
+#Join bottom 20 station list with registered and casual riders list
+# Drop unneeded column
+ss_reg_cas_bottom <- inner_join(bottom20startstationnolist, ss_reg_cas, by = "start_station_no", copy = FALSE)%>%
+  rename(start_station = "start_station.x")%>%
+  select(-start_station.y)
+View(ss_reg_cas_bottom)
+rm(ss_reg_cas_bottom)
+
+# Write a CSV of the data
+write_csv(ss_reg_cas_bottom, "data/stations/ss_reg_cas_bottom.csv")
 
 # Question 10 
 # Question: The D.C. Metro shut down on March 15, 2016 for an entire day for mandatory safety repairs.  How did this shutdown affect Capital Bikeshare usage, as people searched for alternate modes of transport to work?  This is a small way of getting at the question of how delays and problems on the Metro affect the Capital Bikeshare system. 
