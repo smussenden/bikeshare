@@ -84,7 +84,7 @@ top_20_start_stations <- allbike %>%
   summarise(count= n()) %>%
   arrange(desc(count))
 top_20_start_stations <- head(top_20_start_stations, n=20) 
-write_csv(start_station,"data/proximity/proximity_raw.csv")
+write_csv(top_20_start_stations,"data/proximity/proximity_raw.csv")
 
 # In CSV, proximity_raw add a column indicating whether the station is within a half mile of a metro station, as determined by examining location on Google Map and measuring distance. Save it as proximity.csv. 
 
@@ -104,7 +104,10 @@ ggplot(data=proximity_grouping,aes(1, percent, fill=close_to_metro)) +
   labs(y="Percentage of stations in top 20", x ="",title="40 percent of most used stations \n are close to metro", subtitle="Source: Analysis of Capital Bikeshare ridership data") +
   guides(fill=guide_legend(title="Within \nhalf mile \nof Metro Station")) +
   theme(axis.ticks.x=element_blank(), axis.text.x=element_blank()) +
-  scale_y_continuous(labels=function(x) paste0(x,"%"))
+  scale_y_continuous(labels=function(x) paste0(x,"%")) +
+  annotate("text", x=1, y=20, label="40%", angle=0) +
+  annotate("text", x=1, y=80, label="60%", angle=0)
+
 
 ## Question 4: Are there dedicated bike lanes in the city along the most popular routes taken by people riding Capital Bikeshare bikes?  
 
@@ -155,12 +158,10 @@ ggplot(data=bike_paths ,aes(bike_lane_coverage, coverage)) +
     summarise(count= n()) %>%
     arrange(desc(count)) %>%
     head(20)
-  View(top20startstationsno)
 
  # Show columns: start_station_no, start_lat, start_lon and write csv ; drop the count column from top20startstationsno.
   top20startstationsnolist <- top20startstationsno %>%
     select(start_station_no,start_lat,start_lon)
-  View(top20startstationsnolist)
 # Write a CSV of the data
   write_csv(top20startstationsnolist, "data/stations/top20startstationsnolist.csv")
  
@@ -171,12 +172,10 @@ ggplot(data=bike_paths ,aes(bike_lane_coverage, coverage)) +
     summarise(count= n()) %>%
     arrange(desc(count)) %>%
     tail(20)
-  View(bottom20startstationno)
 
  # Show columns: start_station_no, start_lat, start_lon and write csv  
   bottom20startstationnolist <- bottom20startstationno %>%
     select(start_station_no,start_lat,start_lon)
-  View(bottom20startstationnolist)
 # Write a CSV of the data
   write.csv(bottom20startstationnolist, "data/stations/bottom20startstationnolist.csv")
 
