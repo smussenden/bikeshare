@@ -1,4 +1,4 @@
-## Finding 11
+## Finding 9
 
 #### _Question:_ Amongst the most used and least used stations, are there any patterns about usage by registered users versus casual users?
 
