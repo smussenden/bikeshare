@@ -604,12 +604,10 @@ top20startstationsno <- allbike %>%
   summarise(count= n()) %>%
   arrange(desc(count)) %>%
   head(20)
-View(top20startstationsno)
 
 # Show columns: start_station_no, start_station, start_lat, start_lon and write csv ; drop the count column from top20startstationsno.
 top20startstationsnolist <- top20startstationsno %>%
   select(start_station_no,start_station,start_lat,start_lon)
-View(top20startstationsnolist)
 
 
 #Get the bottom 20 start stations, identifed by start station number and arrange in descending order.
@@ -619,12 +617,10 @@ bottom20startstationno <- allbike %>%
   summarise(count= n()) %>%
   arrange(desc(count)) %>%
   tail(20)
-View(bottom20startstationno)
 
 # Show columns: start_station_no, start_station, start_lat, start_lon  
 bottom20startstationnolist <- bottom20startstationno %>%
   select(start_station_no,start_station,start_lat,start_lon)
-View(bottom20startstationnolist)
 
 # Get the number of registered users for each start station
 # Show columns: start_station_no, start_station, registered 
@@ -632,7 +628,6 @@ ss_reg<- allbike %>%
   group_by(start_station_no,start_station,member_type) %>%
   filter(member_type=="Registered") %>%
   summarise(registered= n()) 
-View(ss_reg)
 rm(ss_reg)
 
 # Get the number of casual users for each start station
@@ -641,12 +636,10 @@ ss_cas<- allbike %>%
   group_by(start_station_no,start_station,member_type) %>%
   filter(member_type=="Casual") %>%
   summarise(casual= n()) 
-View(ss_cas)
 rm(ss_cas)
 
 # Join registered riders with casual riders on start station number
 ss_reg_cas <- inner_join(ss_reg, ss_cas, by = "start_station_no", copy = FALSE)
-View(ss_reg_cas)
 rm(ss_reg_cas)
 
 #Calculate the percentages of registered riders and casual riders
@@ -657,14 +650,12 @@ ss_reg_cas <- ss_reg_cas %>%
   mutate(percent_reg = (registered/total)*100) %>%
   mutate(percent_cas = (casual/total)*100) %>%
   select(-member_type.x,-member_type.y,-start_station.y)
-View(ss_reg_cas)
 
 #Join top 20 station list with registered and casual riders list
 # Drop unneeded column
 ss_reg_cas_top <- inner_join(top20startstationsnolist, ss_reg_cas, by = "start_station_no", copy = FALSE)%>%
   rename(start_station = "start_station.x")%>%
   select(-start_station.y)
-View(ss_reg_cas_top)
 rm(ss_reg_cas_top)
 
 # Write a CSV of the data
@@ -675,7 +666,6 @@ write_csv(ss_reg_cas_top, "data/stations/ss_reg_cas_top.csv")
 ss_reg_cas_bottom <- inner_join(bottom20startstationnolist, ss_reg_cas, by = "start_station_no", copy = FALSE)%>%
   rename(start_station = "start_station.x")%>%
   select(-start_station.y)
-View(ss_reg_cas_bottom)
 rm(ss_reg_cas_bottom)
 
 # Write a CSV of the data
